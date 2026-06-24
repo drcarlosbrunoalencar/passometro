@@ -38,202 +38,68 @@
       --radius: 12px;
       --radius-sm: 8px;
       --radius-xs: 6px;
-      --shadow: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 1px 4px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
     }
     body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
 
-    /* HEADER */
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .header-brand { display: flex; align-items: center; gap: 10px; }
-    .header-icon {
-      width: 32px; height: 32px;
-      background: var(--blue);
-      border-radius: var(--radius-xs);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 17px;
-    }
-    .header-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .header-icon { width: 32px; height: 32px; background: var(--blue); border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; }
+    .header-title { font-size: 15px; font-weight: 600; }
     .header-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-    .badge-count {
-      font-size: 12px; font-weight: 600;
-      background: var(--blue-bg); color: var(--blue-text);
-      padding: 3px 10px; border-radius: 999px;
-    }
+    .badge-count { font-size: 12px; font-weight: 600; background: var(--blue-bg); color: var(--blue-text); padding: 3px 10px; border-radius: 999px; }
 
-    /* TABS */
-    .tabs {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      padding: 0 20px;
-    }
-    .tab {
-      flex: 1; padding: 13px 8px;
-      font-size: 13px; font-weight: 500;
-      color: var(--text-muted);
-      border: none; background: none; cursor: pointer;
-      border-bottom: 2px solid transparent;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      transition: color 0.15s;
-    }
+    .tabs { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 20px; }
+    .tab { flex: 1; padding: 13px 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; transition: color 0.15s; }
     .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
     .tab i { font-size: 16px; }
 
-    /* MAIN */
     .main { padding: 20px 16px; max-width: 540px; margin: 0 auto; }
 
-    /* FORM CARD */
-    .form-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
+    .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
 
-    /* SECTION */
-    .section-label {
-      font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin: 20px 0 10px;
-    }
+    .section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-hint); margin: 20px 0 10px; }
     .section-label:first-child { margin-top: 0; }
 
-    /* FIELD */
     .field { margin-bottom: 10px; }
-    .field-label {
-      font-size: 12px; font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-      display: flex; align-items: center; gap: 5px;
-    }
+    .field-label { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
     .field-label i { font-size: 13px; }
-    .field input, .field textarea {
-      width: 100%;
-      padding: 9px 12px;
-      font-size: 14px;
-      font-family: inherit;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--bg);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-    .field input:focus, .field textarea:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
-      background: var(--surface);
-    }
+    .field input, .field textarea { width: 100%; padding: 9px 12px; font-size: 14px; font-family: inherit; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+    .field input:focus, .field textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(79,142,247,0.1); background: var(--surface); }
     .field input::placeholder, .field textarea::placeholder { color: var(--text-hint); }
     .field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    /* CHIP GRID — multi ou single select */
     .chip-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-    .chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 6px 13px;
-      font-size: 12px; font-weight: 500;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.12s;
-      white-space: nowrap;
-    }
+    .chip { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; font-size: 12px; font-weight: 500; border: 1.5px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-muted); cursor: pointer; transition: all 0.12s; white-space: nowrap; }
     .chip:hover { border-color: #c0c8d8; color: var(--text); }
     .chip i { font-size: 13px; }
 
-    /* Status chips */
-    .chip.sel-concluido    { background: var(--green-bg);  color: var(--green-text);  border-color: var(--green); }
-    .chip.sel-possivel-alta{ background: var(--blue-bg);   color: var(--blue-text);   border-color: var(--blue); }
-    .chip.sel-alta         { background: var(--teal-bg);   color: var(--teal-text);   border-color: var(--teal); }
-    .chip.sel-av-externa   { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple); }
+    .chip.sel-concluido     { background: var(--green-bg);  color: var(--green-text);  border-color: var(--green); }
+    .chip.sel-possivel-alta { background: var(--blue-bg);   color: var(--blue-text);   border-color: var(--blue); }
+    .chip.sel-alta          { background: var(--teal-bg);   color: var(--teal-text);   border-color: var(--teal); }
+    .chip.sel-av-externa    { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple); }
+    .chip.sel-prio-alta     { background: var(--red-bg);    color: var(--red-text);    border-color: var(--red); }
+    .chip.sel-prio-media    { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
+    .chip.sel-prio-baixa    { background: var(--green-bg);  color: var(--green-text);  border-color: var(--green); }
+    .chip.sel-pend          { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
 
-    /* Prioridade chips */
-    .chip.sel-prio-alta  { background: var(--red-bg);    color: var(--red-text);    border-color: var(--red); }
-    .chip.sel-prio-media { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
-    .chip.sel-prio-baixa { background: var(--green-bg);  color: var(--green-text);  border-color: var(--green); }
-
-    /* Pendências chips */
-    .chip.sel-pend { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
-
-    /* BTN SALVAR */
-    .btn-save {
-      width: 100%; padding: 11px;
-      font-size: 14px; font-weight: 600;
-      font-family: inherit;
-      border: none; border-radius: var(--radius-sm);
-      background: var(--blue); color: #fff;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      margin-top: 20px;
-      transition: opacity 0.15s, transform 0.1s;
-    }
+    .btn-save { width: 100%; padding: 11px; font-size: 14px; font-weight: 600; font-family: inherit; border: none; border-radius: var(--radius-sm); background: var(--blue); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 20px; transition: opacity 0.15s; }
     .btn-save:hover { opacity: 0.92; }
-    .btn-save:active { transform: scale(0.99); }
     .btn-save:disabled { opacity: 0.55; cursor: not-allowed; }
     .btn-save i { font-size: 16px; }
 
-    /* LISTA */
-    .list-toolbar {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
+    .list-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .list-info { font-size: 13px; color: var(--text-muted); }
-    .btn-clear {
-      font-size: 12px; font-weight: 500;
-      color: var(--red-text);
-      background: none;
-      border: 1px solid #fecaca;
-      border-radius: var(--radius-xs);
-      padding: 5px 10px; cursor: pointer;
-      display: flex; align-items: center; gap: 4px;
-      transition: background 0.12s;
-    }
-    .btn-clear:hover { background: var(--red-bg); }
+    .btn-clear { font-size: 12px; font-weight: 500; color: var(--red-text); background: none; border: 1px solid #fecaca; border-radius: var(--radius-xs); padding: 5px 10px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    /* FILTER PILLS */
     .filters { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-    .filter-btn {
-      font-size: 12px; font-weight: 500;
-      padding: 5px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.12s;
-    }
+    .filter-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-muted); cursor: pointer; transition: all 0.12s; }
     .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
     /* PATIENT CARD */
-    .patient-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: box-shadow 0.15s, border-color 0.15s;
-    }
+    .patient-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; cursor: pointer; box-shadow: var(--shadow); transition: box-shadow 0.15s, border-color 0.15s; position: relative; overflow: hidden; }
     .patient-card:hover { box-shadow: var(--shadow-md); border-color: #d0d8e8; }
     .patient-card.bl-green  { border-left: 3px solid var(--green); }
     .patient-card.bl-blue   { border-left: 3px solid var(--blue); }
@@ -242,17 +108,18 @@
     .patient-card.bl-yellow { border-left: 3px solid var(--yellow); }
     .patient-card.bl-red    { border-left: 3px solid var(--red); }
 
-    .pc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 4px; }
+    /* CONCLUIDO — risco + opacidade */
+    .patient-card.concluido-final { opacity: 0.65; background: #f9fafb; }
+    .patient-card.concluido-final .pc-nome { text-decoration: line-through; color: var(--text-muted); }
+    .patient-card.concluido-final::after { content: '✓ Evolução concluída'; position: absolute; top: 8px; right: 10px; font-size: 10px; font-weight: 600; color: var(--green-text); background: var(--green-bg); padding: 2px 8px; border-radius: 999px; }
+
     .pc-leito { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
     .pc-nome  { font-size: 15px; font-weight: 600; color: var(--text); margin-top: 1px; }
     .pc-hda   { font-size: 13px; color: var(--text-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pc-obs   { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-style: italic; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .pc-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
 
-    /* MINI PILLS */
-    .mpill {
-      font-size: 11px; font-weight: 600;
-      padding: 2px 8px; border-radius: 999px;
-    }
+    .mpill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
     .mpill-green  { background: var(--green-bg);  color: var(--green-text); }
     .mpill-blue   { background: var(--blue-bg);   color: var(--blue-text); }
     .mpill-teal   { background: var(--teal-bg);   color: var(--teal-text); }
@@ -260,38 +127,18 @@
     .mpill-yellow { background: var(--yellow-bg); color: var(--yellow-text); }
     .mpill-red    { background: var(--red-bg);    color: var(--red-text); }
 
-    /* EMPTY */
     .empty { text-align: center; padding: 3rem 1rem; color: var(--text-hint); }
     .empty i { font-size: 44px; display: block; margin-bottom: 10px; opacity: 0.5; }
     .empty p { font-size: 14px; line-height: 1.6; }
 
-    /* DETAIL */
-    .btn-back {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 13px; font-weight: 500; color: var(--blue);
-      background: none; border: none; cursor: pointer; padding: 0;
-      margin-bottom: 14px;
-    }
-    .detail-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-    .detail-hero { margin-bottom: 14px; }
-    .detail-name { font-size: 20px; font-weight: 700; color: var(--text); }
+    .btn-back { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--blue); background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 14px; }
+    .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+    .detail-name { font-size: 20px; font-weight: 700; }
     .detail-sub  { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
     .detail-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
     .divider { height: 1px; background: var(--border); margin: 14px 0; }
     .detail-row { margin-bottom: 12px; }
-    .detail-row:last-of-type { margin-bottom: 0; }
-    .dlabel {
-      font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.07em;
-      color: var(--text-hint); margin-bottom: 4px;
-      display: flex; align-items: center; gap: 4px;
-    }
+    .dlabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-hint); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
     .dlabel i { font-size: 13px; }
     .dvalue { font-size: 14px; color: var(--text); line-height: 1.5; }
 
@@ -299,48 +146,33 @@
     .pend-list { display: flex; flex-direction: column; gap: 7px; }
     .pend-item { display: flex; align-items: center; gap: 9px; }
     .pend-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
-    .pend-item label { font-size: 14px; cursor: pointer; color: var(--text); }
+    .pend-item label { font-size: 14px; cursor: pointer; }
     .pend-item.done label { text-decoration: line-through; color: var(--text-hint); }
 
-    /* ACTIONS */
+    /* BOTÕES DE AÇÃO */
     .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
-    .btn-act {
-      padding: 9px; font-size: 13px; font-weight: 500; font-family: inherit;
-      border-radius: var(--radius-sm); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 5px;
-      border: 1px solid var(--border); background: var(--bg); color: var(--text);
-      transition: background 0.12s;
-    }
+    .detail-actions-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .btn-act { padding: 9px 6px; font-size: 12px; font-weight: 500; font-family: inherit; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--border); background: var(--bg); color: var(--text); transition: background 0.12s; text-align: center; }
     .btn-act:hover { background: var(--border); }
-    .btn-act.danger { color: var(--red-text); border-color: #fecaca; background: var(--red-bg); }
-    .btn-act i { font-size: 15px; }
+    .btn-act.success { color: var(--green-text); border-color: #86efac; background: var(--green-bg); }
+    .btn-act.primary { color: var(--blue-text); border-color: #93c5fd; background: var(--blue-bg); }
+    .btn-act.danger  { color: var(--red-text);  border-color: #fecaca; background: var(--red-bg); }
+    .btn-act i { font-size: 14px; }
 
-    /* TOAST */
-    .toast {
-      position: fixed; bottom: 20px; left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: #1c2333; color: #fff;
-      padding: 9px 18px; border-radius: var(--radius-sm);
-      font-size: 13px; font-weight: 500;
-      opacity: 0; pointer-events: none; z-index: 9999;
-      transition: opacity 0.2s, transform 0.2s;
-      white-space: nowrap;
-    }
+    /* CONCLUIDO BANNER no detalhe */
+    .concluido-banner { background: var(--green-bg); border: 1px solid #86efac; border-radius: var(--radius-sm); padding: 10px 14px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--green-text); margin-bottom: 14px; }
+
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(8px); background: #1c2333; color: #fff; padding: 9px 18px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; opacity: 0; pointer-events: none; z-index: 9999; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* SYNC */
-    .sync {
-      position: fixed; top: 62px; right: 12px;
-      font-size: 11px; color: var(--text-hint);
-      display: flex; align-items: center; gap: 4px;
-      opacity: 0; transition: opacity 0.2s;
-    }
+    .sync { position: fixed; top: 62px; right: 12px; font-size: 11px; color: var(--text-hint); display: flex; align-items: center; gap: 4px; opacity: 0; transition: opacity 0.2s; }
     .sync.show { opacity: 1; }
 
     @media (max-width: 400px) {
       .main { padding: 14px 12px; }
       .form-card { padding: 16px; }
       .row2 { grid-template-columns: 1fr; }
+      .detail-actions-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -362,19 +194,18 @@
   <button class="tab"        id="tab-list" onclick="switchTab('list')"><i class="ti ti-layout-list"></i> Enfermaria</button>
 </div>
 
-<!-- ══ NOVO ══ -->
+<!-- NOVO -->
 <div class="main" id="view-new">
   <div class="form-card">
-
     <div class="section-label">Identificação</div>
     <div class="row2">
       <div class="field">
         <div class="field-label"><i class="ti ti-door"></i> Leito</div>
-        <input id="f-leito" placeholder="Ex: 12A" autocomplete="off" onkeydown="jump(event,'f-dias')">
+        <input id="f-leito" placeholder="Ex: 12A" autocomplete="off" onkeydown="jump(event,'f-nome')">
       </div>
       <div class="field">
-        <div class="field-label"><i class="ti ti-calendar"></i> Dias internado</div>
-        <input id="f-dias" type="number" min="0" placeholder="0" onkeydown="jump(event,'f-nome')">
+        <div class="field-label"><i class="ti ti-calendar"></i> Data de internação</div>
+        <input id="f-data-intern" type="date">
       </div>
     </div>
     <div class="field">
@@ -394,22 +225,16 @@
       </div>
       <div class="field">
         <div class="field-label"><i class="ti ti-hash"></i> Dia do ATB</div>
-        <input id="f-dia-atb" type="number" min="1" placeholder="Ex: 5" onkeydown="jump(event,'f-contato')">
+        <input id="f-dia-atb" type="number" min="1" placeholder="Ex: 5" onkeydown="jump(event,'f-obs')">
       </div>
-    </div>
-
-    <div class="section-label">Contato familiar</div>
-    <div class="field">
-      <div class="field-label"><i class="ti ti-phone"></i> Nome + telefone</div>
-      <input id="f-contato" placeholder="Ex: Maria — (62) 99999-9999" onkeydown="jump(event,'f-obs')">
     </div>
 
     <div class="section-label">Pendências</div>
     <div class="chip-grid" id="pend-grid-new">
-      <button class="chip" data-val="labs"     onclick="togglePendChip(this,'new')"><i class="ti ti-flask"></i> Labs</button>
-      <button class="chip" data-val="rx"       onclick="togglePendChip(this,'new')"><i class="ti ti-lungs"></i> RX</button>
-      <button class="chip" data-val="ecg"      onclick="togglePendChip(this,'new')"><i class="ti ti-activity-heartbeat"></i> ECG</button>
-      <button class="chip" data-val="av-ext"   onclick="togglePendChip(this,'new')"><i class="ti ti-stethoscope"></i> Av. Externa</button>
+      <button class="chip" data-val="labs"   onclick="toggleChip(this,'newPends','sel-pend')"><i class="ti ti-flask"></i> Labs</button>
+      <button class="chip" data-val="rx"     onclick="toggleChip(this,'newPends','sel-pend')"><i class="ti ti-lungs"></i> RX</button>
+      <button class="chip" data-val="ecg"    onclick="toggleChip(this,'newPends','sel-pend')"><i class="ti ti-activity-heartbeat"></i> ECG</button>
+      <button class="chip" data-val="av-ext" onclick="toggleChip(this,'newPends','sel-pend')"><i class="ti ti-stethoscope"></i> Av. Externa</button>
     </div>
 
     <div class="section-label">Observações</div>
@@ -419,17 +244,17 @@
 
     <div class="section-label">Status</div>
     <div class="chip-grid" id="status-grid-new">
-      <button class="chip" data-val="concluido"     onclick="toggleStatusChip(this,'new')"><i class="ti ti-circle-check"></i> Concluído</button>
-      <button class="chip" data-val="possivel-alta" onclick="toggleStatusChip(this,'new')"><i class="ti ti-arrow-up-circle"></i> Possível alta</button>
-      <button class="chip" data-val="alta"          onclick="toggleStatusChip(this,'new')"><i class="ti ti-door-exit"></i> Alta</button>
-      <button class="chip" data-val="av-externa"    onclick="toggleStatusChip(this,'new')"><i class="ti ti-building-hospital"></i> Av. Externa</button>
+      <button class="chip" data-val="concluido"     onclick="toggleChip(this,'newStatus','sel-concluido')"><i class="ti ti-circle-check"></i> Concluído</button>
+      <button class="chip" data-val="possivel-alta" onclick="toggleChip(this,'newStatus','sel-possivel-alta')"><i class="ti ti-arrow-up-circle"></i> Possível alta</button>
+      <button class="chip" data-val="alta"          onclick="toggleChip(this,'newStatus','sel-alta')"><i class="ti ti-door-exit"></i> Alta</button>
+      <button class="chip" data-val="av-externa"    onclick="toggleChip(this,'newStatus','sel-av-externa')"><i class="ti ti-building-hospital"></i> Av. Externa</button>
     </div>
 
     <div class="section-label">Prioridade</div>
     <div class="chip-grid" id="prio-grid-new">
-      <button class="chip" data-val="alta"  onclick="selPrio(this,'new')"><i class="ti ti-alert-circle"></i> Alta</button>
-      <button class="chip" data-val="media" onclick="selPrio(this,'new')"><i class="ti ti-minus-circle"></i> Média</button>
-      <button class="chip" data-val="baixa" onclick="selPrio(this,'new')"><i class="ti ti-circle"></i> Baixa</button>
+      <button class="chip" data-val="alta"  onclick="selPrio(this,'prio-grid-new','newPrio')"><i class="ti ti-alert-circle"></i> Alta</button>
+      <button class="chip" data-val="media" onclick="selPrio(this,'prio-grid-new','newPrio')"><i class="ti ti-minus-circle"></i> Média</button>
+      <button class="chip" data-val="baixa" onclick="selPrio(this,'prio-grid-new','newPrio')"><i class="ti ti-circle"></i> Baixa</button>
     </div>
 
     <button class="btn-save" id="btn-save-new" onclick="savePatient()">
@@ -438,28 +263,29 @@
   </div>
 </div>
 
-<!-- ══ LISTA ══ -->
+<!-- LISTA -->
 <div class="main" id="view-list" style="display:none">
   <div class="list-toolbar">
     <span class="list-info" id="list-info">Carregando...</span>
     <button class="btn-clear" onclick="confirmClear()"><i class="ti ti-trash"></i> Limpar plantão</button>
   </div>
   <div class="filters">
-    <button class="filter-btn active" data-filter="todos"        onclick="setFilter(this)">Todos</button>
+    <button class="filter-btn active" data-filter="todos"         onclick="setFilter(this)">Todos</button>
     <button class="filter-btn"        data-filter="possivel-alta" onclick="setFilter(this)">Possível alta</button>
-    <button class="filter-btn"        data-filter="alta"         onclick="setFilter(this)">Alta</button>
-    <button class="filter-btn"        data-filter="pendencias"   onclick="setFilter(this)">⚠ Pendências</button>
+    <button class="filter-btn"        data-filter="alta"          onclick="setFilter(this)">Alta</button>
+    <button class="filter-btn"        data-filter="pendencias"    onclick="setFilter(this)">⚠ Pendências</button>
+    <button class="filter-btn"        data-filter="concluidos"    onclick="setFilter(this)">✓ Concluídos</button>
   </div>
   <div id="patient-list"></div>
 </div>
 
-<!-- ══ DETALHE ══ -->
+<!-- DETALHE -->
 <div class="main" id="view-detail" style="display:none">
   <button class="btn-back" onclick="backToList()"><i class="ti ti-arrow-left"></i> Voltar</button>
   <div id="detail-content"></div>
 </div>
 
-<!-- ══ EDITAR ══ -->
+<!-- EDITAR -->
 <div class="main" id="view-edit" style="display:none">
   <button class="btn-back" onclick="cancelEdit()"><i class="ti ti-arrow-left"></i> Cancelar</button>
   <div id="edit-content"></div>
@@ -469,40 +295,34 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── STATE ──
 let patients = [];
-let newStatus = [];
-let newPrio   = '';
-let newPends  = [];
-let editStatus = [];
-let editPrio   = '';
-let editPends  = [];
-let editingId  = null;
+let newStatus = [], newPrio = '', newPends = [];
+let editStatus = [], editPrio = '', editPends = [];
+let editingId = null;
 let currentFilter = 'todos';
 
-// ── MAPS ──
 const statusInfo = {
-  'concluido':     { label: 'Concluído',     color: 'green',  icon: 'ti-circle-check' },
-  'possivel-alta': { label: 'Possível alta', color: 'blue',   icon: 'ti-arrow-up-circle' },
-  'alta':          { label: 'Alta',          color: 'teal',   icon: 'ti-door-exit' },
-  'av-externa':    { label: 'Av. Externa',   color: 'purple', icon: 'ti-building-hospital' }
+  'concluido':     { label:'Concluído',     color:'green',  icon:'ti-circle-check' },
+  'possivel-alta': { label:'Possível alta', color:'blue',   icon:'ti-arrow-up-circle' },
+  'alta':          { label:'Alta',          color:'teal',   icon:'ti-door-exit' },
+  'av-externa':    { label:'Av. Externa',   color:'purple', icon:'ti-building-hospital' }
 };
 const prioInfo = {
-  'alta':  { label: 'Prioridade alta',  color: 'red',    icon: 'ti-alert-circle' },
-  'media': { label: 'Prioridade média', color: 'yellow', icon: 'ti-minus-circle' },
-  'baixa': { label: 'Prioridade baixa', color: 'green',  icon: 'ti-circle' }
+  'alta':  { label:'P. Alta',  color:'red',    icon:'ti-alert-circle' },
+  'media': { label:'P. Média', color:'yellow', icon:'ti-minus-circle' },
+  'baixa': { label:'P. Baixa', color:'green',  icon:'ti-circle' }
 };
 const pendInfo = {
-  'labs':   { label: 'Aguardando Labs', icon: 'ti-flask' },
-  'rx':     { label: 'Aguardando RX',   icon: 'ti-lungs' },
-  'ecg':    { label: 'Aguardando ECG',  icon: 'ti-activity-heartbeat' },
-  'av-ext': { label: 'Av. Externa',     icon: 'ti-stethoscope' }
+  'labs':   { label:'Aguardando Labs', icon:'ti-flask' },
+  'rx':     { label:'Aguardando RX',   icon:'ti-lungs' },
+  'ecg':    { label:'Aguardando ECG',  icon:'ti-activity-heartbeat' },
+  'av-ext': { label:'Av. Externa',     icon:'ti-stethoscope' }
 };
 
 // ── API ──
 async function api(method, path, body) {
   document.getElementById('sync').classList.add('show');
-  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  const opts = { method, headers: {'Content-Type':'application/json'} };
   if (body) opts.body = JSON.stringify(body);
   try {
     const r = await fetch(path, opts);
@@ -519,14 +339,12 @@ async function loadPatients() {
   try {
     patients = await api('GET', '/api/pacientes');
     updateBadge();
-  } catch(e) {
-    toast('Erro ao conectar com o servidor');
-  }
+  } catch(e) { toast('Erro ao conectar com o servidor'); }
 }
 
 function updateBadge() {
-  const el = document.getElementById('badge-count');
-  el.textContent = patients.length + ' paciente' + (patients.length !== 1 ? 's' : '');
+  const ativos = patients.filter(p => !p.evolucaoConcluida).length;
+  document.getElementById('badge-count').textContent = ativos + ' ativo' + (ativos !== 1 ? 's' : '');
 }
 
 // ── TABS ──
@@ -540,41 +358,42 @@ function switchTab(tab) {
   if (tab === 'list') renderList();
 }
 
-// ── HELPERS ──
 function jump(e, id) {
   if (e.key === 'Enter') { e.preventDefault(); document.getElementById(id)?.focus(); }
 }
 function gv(id) { return document.getElementById(id)?.value?.trim() || ''; }
 
 // ── CHIP TOGGLES ──
-function toggleStatusChip(el, ctx) {
+function toggleChip(el, arrName, selClass) {
   const val = el.dataset.val;
-  const arr = ctx === 'new' ? newStatus : editStatus;
+  const arr = arrName === 'newStatus' ? newStatus
+            : arrName === 'newPends'  ? newPends
+            : arrName === 'editStatus' ? editStatus
+            : editPends;
   const idx = arr.indexOf(val);
-  if (idx === -1) {
-    arr.push(val);
-    el.classList.add('sel-' + val);
-  } else {
-    arr.splice(idx, 1);
-    el.classList.remove('sel-' + val);
-  }
+  if (idx === -1) { arr.push(val); el.classList.add(selClass); }
+  else { arr.splice(idx,1); el.classList.remove(selClass); }
 }
 
-function selPrio(el, ctx) {
-  const gridId = ctx === 'new' ? 'prio-grid-new' : 'edit-prio-grid';
+function selPrio(el, gridId, varName) {
   document.querySelectorAll(`#${gridId} .chip`).forEach(b =>
     b.classList.remove('sel-prio-alta','sel-prio-media','sel-prio-baixa'));
   el.classList.add('sel-prio-' + el.dataset.val);
-  if (ctx === 'new') newPrio = el.dataset.val;
+  if (varName === 'newPrio') newPrio = el.dataset.val;
   else editPrio = el.dataset.val;
 }
 
-function togglePendChip(el, ctx) {
-  const val = el.dataset.val;
-  const arr = ctx === 'new' ? newPends : editPends;
-  const idx = arr.indexOf(val);
-  if (idx === -1) { arr.push(val); el.classList.add('sel-pend'); }
-  else { arr.splice(idx, 1); el.classList.remove('sel-pend'); }
+// ── DATA INTERNAÇÃO → dias ──
+function calcDias(dataIntern) {
+  if (!dataIntern) return '';
+  const diff = Date.now() - new Date(dataIntern).getTime();
+  return Math.max(0, Math.floor(diff / 86400000));
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const [y,m,d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
 }
 
 // ── SAVE NEW ──
@@ -587,39 +406,35 @@ async function savePatient() {
   try {
     const novo = await api('POST', '/api/pacientes', {
       leito, nome,
-      dias:     gv('f-dias'),
-      hda:      gv('f-hda'),
-      atb:      gv('f-atb'),
-      diaAtb:   gv('f-dia-atb'),
-      contato:  gv('f-contato'),
-      obs:      gv('f-obs'),
-      status:   [...newStatus],
+      dataIntern: gv('f-data-intern'),
+      hda:        gv('f-hda'),
+      atb:        gv('f-atb'),
+      diaAtb:     gv('f-dia-atb'),
+      obs:        gv('f-obs'),
+      status:     [...newStatus],
       prioridade: newPrio,
-      pendencias: [...newPends]
+      pendencias: [...newPends],
+      evolucaoConcluida: false,
+      pendenciasFeitas: []
     });
     patients.push(novo);
     sortPts();
     clearNewForm();
     toast('Paciente salvo ✓');
     switchTab('list');
-  } catch(e) {
-    toast('Erro ao salvar — verifique a conexão');
-  }
+  } catch(e) { toast('Erro ao salvar — verifique a conexão'); }
   btn.disabled = false;
   btn.innerHTML = '<i class="ti ti-device-floppy"></i> Salvar paciente';
 }
 
 function clearNewForm() {
-  ['f-leito','f-dias','f-nome','f-hda','f-atb','f-dia-atb','f-contato','f-obs'].forEach(id => {
+  ['f-leito','f-data-intern','f-nome','f-hda','f-atb','f-dia-atb','f-obs'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   newStatus = []; newPrio = ''; newPends = [];
-  document.querySelectorAll('#status-grid-new .chip').forEach(b =>
-    b.className = 'chip');
-  document.querySelectorAll('#prio-grid-new .chip').forEach(b =>
-    b.className = 'chip');
-  document.querySelectorAll('#pend-grid-new .chip').forEach(b =>
-    b.className = 'chip');
+  document.querySelectorAll('#status-grid-new .chip, #prio-grid-new .chip, #pend-grid-new .chip').forEach(b => {
+    b.className = 'chip';
+  });
   document.getElementById('f-leito')?.focus();
 }
 
@@ -630,7 +445,7 @@ function sortPts() {
   });
 }
 
-// ── FILTER ──
+// ── FILTERS ──
 function setFilter(el) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
@@ -638,22 +453,21 @@ function setFilter(el) {
   renderList();
 }
 function getFiltered() {
-  if (currentFilter === 'todos') return patients;
-  if (currentFilter === 'pendencias') return patients.filter(p => (p.pendencias||[]).length > 0);
+  if (currentFilter === 'todos')         return patients;
+  if (currentFilter === 'pendencias')    return patients.filter(p => (p.pendencias||[]).length > 0);
+  if (currentFilter === 'concluidos')    return patients.filter(p => p.evolucaoConcluida);
   return patients.filter(p => (p.status||[]).includes(currentFilter));
 }
 
 // ── RENDER LIST ──
 function renderList() {
   const filtered = getFiltered();
-  document.getElementById('list-info').textContent =
-    `${filtered.length} paciente${filtered.length!==1?'s':''} · por leito`;
+  const ativos = patients.filter(p => !p.evolucaoConcluida).length;
+  document.getElementById('list-info').textContent = `${ativos} ativo${ativos!==1?'s':''} · ${patients.length} total`;
   const list = document.getElementById('patient-list');
   if (!filtered.length) {
     list.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>${
-      currentFilter === 'todos'
-        ? 'Nenhum paciente ainda.<br>Adicione pelo botão Novo paciente.'
-        : 'Nenhum paciente nesta categoria.'
+      currentFilter==='todos' ? 'Nenhum paciente ainda.<br>Adicione pelo botão Novo paciente.' : 'Nenhum paciente nesta categoria.'
     }</p></div>`;
     return;
   }
@@ -661,28 +475,27 @@ function renderList() {
     const statuses = p.status || [];
     const pends    = p.pendencias || [];
     const firstStatus = statuses[0] ? statusInfo[statuses[0]] : null;
-    const borderClass = firstStatus ? 'bl-'+firstStatus.color : '';
+    const borderClass = p.evolucaoConcluida ? 'bl-green' : (firstStatus ? 'bl-'+firstStatus.color : '');
+    const concluidoClass = p.evolucaoConcluida ? 'concluido-final' : '';
     const prioI = p.prioridade ? prioInfo[p.prioridade] : null;
+    const dias = calcDias(p.dataIntern);
 
     const statusPills = statuses.map(s => {
       const si = statusInfo[s];
       return si ? `<span class="mpill mpill-${si.color}">${si.label}</span>` : '';
     }).join('');
-    const prioPill = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
+    const prioPill  = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
+    const atbPill   = p.atb ? `<span class="mpill mpill-blue">💊 ${p.atb}${p.diaAtb?' D'+p.diaAtb:''}</span>` : '';
     const pendPills = pends.map(pk => {
       const pi = pendInfo[pk];
       return pi ? `<span class="mpill mpill-yellow">⚠ ${pi.label}</span>` : '';
     }).join('');
-    const atbPill = p.atb ? `<span class="mpill mpill-blue">💊 ${p.atb}${p.diaAtb?' D'+p.diaAtb:''}</span>` : '';
 
-    return `<div class="patient-card ${borderClass}" onclick="showDetail('${p._id}')">
-      <div class="pc-top">
-        <div>
-          <div class="pc-leito">Leito ${p.leito}${p.dias?' · '+p.dias+'d':''}</div>
-          <div class="pc-nome">${p.nome}</div>
-        </div>
-      </div>
+    return `<div class="patient-card ${borderClass} ${concluidoClass}" onclick="showDetail('${p._id}')">
+      <div class="pc-leito">Leito ${p.leito}${dias!==''?' · '+dias+'d':''}</div>
+      <div class="pc-nome">${p.nome}</div>
       ${p.hda ? `<div class="pc-hda">${p.hda}</div>` : ''}
+      ${p.obs ? `<div class="pc-obs">📝 ${p.obs}</div>` : ''}
       <div class="pc-chips">${statusPills}${prioPill}${atbPill}${pendPills}</div>
     </div>`;
   }).join('');
@@ -697,30 +510,35 @@ function showDetail(id) {
 
   const statuses = p.status || [];
   const pends    = p.pendencias || [];
+  const dias     = calcDias(p.dataIntern);
 
   const statusPills = statuses.map(s => {
     const si = statusInfo[s];
     return si ? `<span class="mpill mpill-${si.color}"><i class="ti ${si.icon}" style="font-size:11px;vertical-align:-1px"></i> ${si.label}</span>` : '';
   }).join('');
-
   const prioI = p.prioridade ? prioInfo[p.prioridade] : null;
   const prioPill = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
 
   const pendHtml = pends.length
     ? `<div class="pend-list">${pends.map((pk,i) => {
-        const pi = pendInfo[pk] || { label: pk, icon: 'ti-point' };
-        return `<div class="pend-item" id="pi-${id}-${i}">
-          <input type="checkbox" id="pc-${id}-${i}" onchange="togglePend('${id}',${i},this)">
+        const pi = pendInfo[pk] || { label: pk, icon:'ti-point' };
+        const feita = (p.pendenciasFeitas||[]).includes(pk);
+        return `<div class="pend-item${feita?' done':''}" id="pi-${id}-${i}">
+          <input type="checkbox" id="pc-${id}-${i}" ${feita?'checked':''} onchange="togglePendCheck('${id}','${pk}',this)">
           <label for="pc-${id}-${i}"><i class="ti ${pi.icon}" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>${pi.label}</label>
         </div>`;
       }).join('')}</div>`
     : `<span style="color:var(--text-hint);font-size:13px;">Sem pendências</span>`;
 
+  const concluidoBanner = p.evolucaoConcluida
+    ? `<div class="concluido-banner"><i class="ti ti-circle-check" style="font-size:18px"></i> Evolução concluída</div>` : '';
+
   document.getElementById('detail-content').innerHTML = `
     <div class="detail-card">
-      <div class="detail-hero">
+      ${concluidoBanner}
+      <div style="margin-bottom:14px">
         <div class="detail-name">${p.nome}</div>
-        <div class="detail-sub">Leito ${p.leito}${p.dias?' · '+p.dias+' dias internado':''}</div>
+        <div class="detail-sub">Leito ${p.leito}${p.dataIntern?' · Internado em '+formatDate(p.dataIntern)+(dias!==''?' ('+dias+'d)':''):''}${dias!==''&&!p.dataIntern?' · '+dias+'d':''}</div>
         <div class="detail-chips">${statusPills}${prioPill}</div>
       </div>
       <div class="divider"></div>
@@ -728,20 +546,67 @@ function showDetail(id) {
       ${(p.atb||p.diaAtb)?`<div class="detail-row"><div class="dlabel"><i class="ti ti-pill"></i> Antibiótico</div><div class="dvalue">${p.atb||'—'}${p.diaAtb?' — Dia '+p.diaAtb:''}</div></div>`:''}
       <div class="detail-row"><div class="dlabel"><i class="ti ti-alert-circle"></i> Pendências</div>${pendHtml}</div>
       ${p.obs?`<div class="detail-row"><div class="dlabel"><i class="ti ti-message"></i> Observações</div><div class="dvalue">${p.obs}</div></div>`:''}
-      ${p.contato?`<div class="detail-row"><div class="dlabel"><i class="ti ti-phone"></i> Contato familiar</div><div class="dvalue">${p.contato}</div></div>`:''}
       <div class="divider"></div>
-      <div class="detail-actions">
+      <div class="detail-actions-3">
+        <button class="btn-act primary" onclick="atualizarPendencias('${id}')"><i class="ti ti-refresh"></i> Atualizar</button>
+        <button class="btn-act${p.evolucaoConcluida?' success':''}" onclick="toggleEvolucao('${id}')">
+          <i class="ti ${p.evolucaoConcluida?'ti-rotate-clockwise':'ti-check'}"></i>
+          ${p.evolucaoConcluida ? 'Reabrir' : 'Evolução concluída'}
+        </button>
         <button class="btn-act" onclick="startEdit('${id}')"><i class="ti ti-edit"></i> Editar</button>
+      </div>
+      <div class="detail-actions" style="margin-top:8px">
         <button class="btn-act danger" onclick="deletePatient('${id}')"><i class="ti ti-trash"></i> Remover</button>
       </div>
     </div>`;
 }
 
-async function togglePend(patId, idx, cb) {
-  // pendências agora são chips fixos — marcar como feito não faz sentido da mesma forma
-  // mas mantemos o visual de riscado como feedback
-  const row = document.getElementById(`pi-${patId}-${idx}`);
-  if (row) row.classList.toggle('done', cb.checked);
+// ── TOGGLE PENDÊNCIA (check) ──
+async function togglePendCheck(patId, pendKey, cb) {
+  const p = patients.find(x => x._id === patId);
+  if (!p) return;
+  p.pendenciasFeitas = p.pendenciasFeitas || [];
+  if (cb.checked) {
+    if (!p.pendenciasFeitas.includes(pendKey)) p.pendenciasFeitas.push(pendKey);
+  } else {
+    p.pendenciasFeitas = p.pendenciasFeitas.filter(k => k !== pendKey);
+  }
+  const idx = cb.closest('.pend-item');
+  if (idx) idx.classList.toggle('done', cb.checked);
+}
+
+// ── ATUALIZAR (remove pendências marcadas) ──
+async function atualizarPendencias(id) {
+  const p = patients.find(x => x._id === id);
+  if (!p) return;
+  const feitas = p.pendenciasFeitas || [];
+  if (!feitas.length) { toast('Nenhuma pendência marcada'); return; }
+  p.pendencias = (p.pendencias||[]).filter(pk => !feitas.includes(pk));
+  p.pendenciasFeitas = [];
+  try {
+    const updated = await api('PUT', `/api/pacientes/${id}`, {
+      pendencias: p.pendencias, pendenciasFeitas: []
+    });
+    const idx = patients.findIndex(x => x._id === id);
+    if (idx !== -1) patients[idx] = { ...patients[idx], ...updated };
+    toast('Pendências atualizadas ✓');
+    showDetail(id);
+  } catch(e) { toast('Erro ao atualizar'); }
+}
+
+// ── EVOLUÇÃO CONCLUÍDA ──
+async function toggleEvolucao(id) {
+  const p = patients.find(x => x._id === id);
+  if (!p) return;
+  const novoVal = !p.evolucaoConcluida;
+  try {
+    const updated = await api('PUT', `/api/pacientes/${id}`, { evolucaoConcluida: novoVal });
+    const idx = patients.findIndex(x => x._id === id);
+    if (idx !== -1) patients[idx] = { ...patients[idx], ...updated };
+    updateBadge();
+    toast(novoVal ? 'Evolução concluída ✓' : 'Paciente reaberto');
+    showDetail(id);
+  } catch(e) { toast('Erro ao atualizar'); }
 }
 
 function backToList() {
@@ -773,10 +638,10 @@ async function confirmClear() {
 function startEdit(id) {
   const p = patients.find(x => x._id === id);
   if (!p) return;
-  editingId  = id;
-  editStatus = [...(p.status||[])];
-  editPrio   = p.prioridade || '';
-  editPends  = [...(p.pendencias||[])];
+  editingId   = id;
+  editStatus  = [...(p.status||[])];
+  editPrio    = p.prioridade || '';
+  editPends   = [...(p.pendencias||[])];
 
   document.getElementById('view-detail').style.display = 'none';
   document.getElementById('view-edit').style.display   = 'block';
@@ -790,7 +655,7 @@ function startEdit(id) {
       <div class="section-label">Identificação</div>
       <div class="row2">
         <div class="field"><div class="field-label"><i class="ti ti-door"></i> Leito</div><input id="e-leito" value="${p.leito}"></div>
-        <div class="field"><div class="field-label"><i class="ti ti-calendar"></i> Dias</div><input id="e-dias" type="number" value="${p.dias||''}"></div>
+        <div class="field"><div class="field-label"><i class="ti ti-calendar"></i> Data internação</div><input id="e-data-intern" type="date" value="${p.dataIntern||''}"></div>
       </div>
       <div class="field"><div class="field-label"><i class="ti ti-user"></i> Nome</div><input id="e-nome" value="${p.nome}"></div>
       <div class="field"><div class="field-label"><i class="ti ti-notes"></i> HDA / Diagnóstico</div><input id="e-hda" value="${p.hda||''}"></div>
@@ -799,29 +664,27 @@ function startEdit(id) {
         <div class="field"><div class="field-label"><i class="ti ti-pill"></i> Antibiótico</div><input id="e-atb" value="${p.atb||''}"></div>
         <div class="field"><div class="field-label"><i class="ti ti-hash"></i> Dia ATB</div><input id="e-dia-atb" type="number" value="${p.diaAtb||''}"></div>
       </div>
-      <div class="section-label">Contato familiar</div>
-      <div class="field"><div class="field-label"><i class="ti ti-phone"></i> Nome + telefone</div><input id="e-contato" value="${p.contato||''}"></div>
       <div class="section-label">Pendências</div>
       <div class="chip-grid" id="edit-pend-grid">
-        <button class="chip ${pe('labs')}"   data-val="labs"   onclick="togglePendChip(this,'edit')"><i class="ti ti-flask"></i> Labs</button>
-        <button class="chip ${pe('rx')}"     data-val="rx"     onclick="togglePendChip(this,'edit')"><i class="ti ti-lungs"></i> RX</button>
-        <button class="chip ${pe('ecg')}"    data-val="ecg"    onclick="togglePendChip(this,'edit')"><i class="ti ti-activity-heartbeat"></i> ECG</button>
-        <button class="chip ${pe('av-ext')}" data-val="av-ext" onclick="togglePendChip(this,'edit')"><i class="ti ti-stethoscope"></i> Av. Externa</button>
+        <button class="chip ${pe('labs')}"   data-val="labs"   onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-flask"></i> Labs</button>
+        <button class="chip ${pe('rx')}"     data-val="rx"     onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-lungs"></i> RX</button>
+        <button class="chip ${pe('ecg')}"    data-val="ecg"    onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-activity-heartbeat"></i> ECG</button>
+        <button class="chip ${pe('av-ext')}" data-val="av-ext" onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-stethoscope"></i> Av. Externa</button>
       </div>
       <div class="section-label">Observações</div>
       <div class="field"><textarea id="e-obs">${p.obs||''}</textarea></div>
       <div class="section-label">Status</div>
       <div class="chip-grid" id="edit-status-grid">
-        <button class="chip ${sc('concluido')}"     data-val="concluido"     onclick="toggleStatusChip(this,'edit')"><i class="ti ti-circle-check"></i> Concluído</button>
-        <button class="chip ${sc('possivel-alta')}" data-val="possivel-alta" onclick="toggleStatusChip(this,'edit')"><i class="ti ti-arrow-up-circle"></i> Possível alta</button>
-        <button class="chip ${sc('alta')}"          data-val="alta"          onclick="toggleStatusChip(this,'edit')"><i class="ti ti-door-exit"></i> Alta</button>
-        <button class="chip ${sc('av-externa')}"    data-val="av-externa"    onclick="toggleStatusChip(this,'edit')"><i class="ti ti-building-hospital"></i> Av. Externa</button>
+        <button class="chip ${sc('concluido')}"     data-val="concluido"     onclick="toggleChip(this,'editStatus','sel-concluido')"><i class="ti ti-circle-check"></i> Concluído</button>
+        <button class="chip ${sc('possivel-alta')}" data-val="possivel-alta" onclick="toggleChip(this,'editStatus','sel-possivel-alta')"><i class="ti ti-arrow-up-circle"></i> Possível alta</button>
+        <button class="chip ${sc('alta')}"          data-val="alta"          onclick="toggleChip(this,'editStatus','sel-alta')"><i class="ti ti-door-exit"></i> Alta</button>
+        <button class="chip ${sc('av-externa')}"    data-val="av-externa"    onclick="toggleChip(this,'editStatus','sel-av-externa')"><i class="ti ti-building-hospital"></i> Av. Externa</button>
       </div>
       <div class="section-label">Prioridade</div>
       <div class="chip-grid" id="edit-prio-grid">
-        <button class="chip ${pc('alta')}"  data-val="alta"  onclick="selPrio(this,'edit')"><i class="ti ti-alert-circle"></i> Alta</button>
-        <button class="chip ${pc('media')}" data-val="media" onclick="selPrio(this,'edit')"><i class="ti ti-minus-circle"></i> Média</button>
-        <button class="chip ${pc('baixa')}" data-val="baixa" onclick="selPrio(this,'edit')"><i class="ti ti-circle"></i> Baixa</button>
+        <button class="chip ${pc('alta')}"  data-val="alta"  onclick="selPrio(this,'edit-prio-grid','editPrio')"><i class="ti ti-alert-circle"></i> Alta</button>
+        <button class="chip ${pc('media')}" data-val="media" onclick="selPrio(this,'edit-prio-grid','editPrio')"><i class="ti ti-minus-circle"></i> Média</button>
+        <button class="chip ${pc('baixa')}" data-val="baixa" onclick="selPrio(this,'edit-prio-grid','editPrio')"><i class="ti ti-circle"></i> Baixa</button>
       </div>
       <button class="btn-save" id="btn-save-edit" onclick="saveEdit()"><i class="ti ti-device-floppy"></i> Salvar alterações</button>
     </div>`;
@@ -833,28 +696,24 @@ async function saveEdit() {
   try {
     const updated = await api('PUT', `/api/pacientes/${editingId}`, {
       leito:      gv('e-leito'),
-      dias:       gv('e-dias'),
+      dataIntern: gv('e-data-intern'),
       nome:       gv('e-nome'),
       hda:        gv('e-hda'),
       atb:        gv('e-atb'),
       diaAtb:     gv('e-dia-atb'),
-      contato:    gv('e-contato'),
       obs:        gv('e-obs'),
       status:     [...editStatus],
       prioridade: editPrio,
       pendencias: [...editPends]
     });
     const idx = patients.findIndex(x => x._id === editingId);
-    if (idx !== -1) patients[idx] = updated;
+    if (idx !== -1) patients[idx] = { ...patients[idx], ...updated };
     sortPts();
     toast('Alterações salvas ✓');
     document.getElementById('view-edit').style.display = 'none';
     showDetail(editingId);
     document.getElementById('view-detail').style.display = 'block';
-  } catch(e) {
-    toast('Erro ao salvar');
-    btn.disabled = false;
-  }
+  } catch(e) { toast('Erro ao salvar'); btn.disabled = false; }
 }
 
 function cancelEdit() {
@@ -863,7 +722,6 @@ function cancelEdit() {
   document.getElementById('view-detail').style.display = 'block';
 }
 
-// ── TOAST ──
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -871,7 +729,6 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-// ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   loadPatients().then(() => {});
 });
