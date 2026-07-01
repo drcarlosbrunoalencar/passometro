@@ -54,6 +54,8 @@
     .tab { flex: 1; padding: 13px 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; transition: color 0.15s; }
     .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
     .tab i { font-size: 16px; }
+    .tab-badge { font-size: 10px; font-weight: 700; background: var(--yellow-bg); color: var(--yellow-text); padding: 1px 7px; border-radius: 999px; margin-left: 2px; }
+    .tab.active .tab-badge { background: var(--blue-bg); color: var(--blue-text); }
 
     .main { padding: 20px 16px; max-width: 540px; margin: 0 auto; }
     .main-wide { max-width: 720px; }
@@ -230,7 +232,7 @@
 <div class="tabs">
   <button class="tab active" id="tab-new"   onclick="switchTab('new')"><i class="ti ti-plus"></i> Novo</button>
   <button class="tab"        id="tab-list"  onclick="switchTab('list')"><i class="ti ti-layout-list"></i> Enfermaria</button>
-  <button class="tab"        id="tab-porta" onclick="switchTab('porta')"><i class="ti ti-door"></i> Porta</button>
+  <button class="tab"        id="tab-porta" onclick="switchTab('porta')"><i class="ti ti-door"></i> Porta <span class="tab-badge" id="porta-badge">0</span></button>
 </div>
 
 <!-- NOVO -->
@@ -810,10 +812,15 @@ function toast(msg) {
 // ── PORTA (tabela de células editáveis) ──
 // ══════════════════════════════════════════
 
+function updatePortaBadge() {
+  document.getElementById('porta-badge').textContent = portaItems.length;
+}
+
 async function loadPorta() {
   try {
     portaItems = await api('GET', '/api/porta');
     renderPorta();
+    updatePortaBadge();
   } catch(e) { toast('Erro ao conectar com o servidor'); }
 }
 
@@ -891,6 +898,7 @@ async function addPortaRow() {
     const novo = await api('POST', '/api/porta', { nome:'', exame:'', queixa:'', concluido:false });
     portaItems.unshift(novo);
     renderPorta();
+    updatePortaBadge();
     const row = document.querySelector(`tr[data-id="${novo._id}"]`);
     row?.querySelector('input.cell-input')?.focus();
   } catch(e) { toast('Erro ao adicionar'); }
@@ -916,6 +924,7 @@ async function deletePortaItem(id) {
     await api('DELETE', `/api/porta/${id}`);
     portaItems = portaItems.filter(x => x._id !== id);
     renderPorta();
+    updatePortaBadge();
     toast('Removido');
   } catch(e) { toast('Erro ao remover'); }
 }
@@ -927,6 +936,7 @@ async function confirmClearPorta() {
     await api('DELETE', '/api/porta');
     portaItems = [];
     renderPorta();
+    updatePortaBadge();
     toast('Lista limpa!');
   } catch(e) { toast('Erro ao limpar'); }
 }
@@ -949,6 +959,7 @@ window.addEventListener('afterprint', () => document.body.classList.remove('prin
 
 document.addEventListener('DOMContentLoaded', () => {
   loadPatients().then(() => {});
+  api('GET', '/api/porta').then(items => { portaItems = items; updatePortaBadge(); }).catch(() => {});
 });
 </script>
 </body>
