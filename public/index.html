@@ -56,6 +56,7 @@
     .tab i { font-size: 16px; }
 
     .main { padding: 20px 16px; max-width: 540px; margin: 0 auto; }
+    .main-wide { max-width: 720px; }
 
     .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
 
@@ -90,7 +91,7 @@
     .btn-save:disabled { opacity: 0.55; cursor: not-allowed; }
     .btn-save i { font-size: 16px; }
 
-    .list-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .list-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
     .list-info { font-size: 13px; color: var(--text-muted); }
     .btn-clear { font-size: 12px; font-weight: 500; color: var(--red-text); background: none; border: 1px solid #fecaca; border-radius: var(--radius-xs); padding: 5px 10px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
@@ -168,6 +169,43 @@
     .sync { position: fixed; top: 62px; right: 12px; font-size: 11px; color: var(--text-hint); display: flex; align-items: center; gap: 4px; opacity: 0; transition: opacity 0.2s; }
     .sync.show { opacity: 1; }
 
+    /* ── PORTA (tabela de células) ── */
+    .porta-table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .porta-table { width: 100%; min-width: 480px; border-collapse: collapse; background: var(--surface); }
+    .porta-table th { text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-hint); padding: 10px; background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .porta-table td { padding: 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .porta-table tr:last-child td { border-bottom: none; }
+    .porta-table th:nth-child(1), .porta-table td:nth-child(1) { width: 26%; }
+    .porta-table th:nth-child(2), .porta-table td:nth-child(2) { width: 20%; }
+    .porta-table th:nth-child(4), .porta-table td:nth-child(4) { width: 58px; }
+    .porta-table th:nth-child(5), .porta-table td:nth-child(5) { width: 78px; }
+    .cell-input { width: 100%; border: none; background: transparent; padding: 11px 10px; font-size: 13px; font-family: inherit; color: var(--text); outline: none; }
+    .cell-input:focus { background: var(--blue-bg); }
+    .cell-input::placeholder { color: var(--text-hint); }
+    .porta-table tr.done .cell-input { text-decoration: line-through; color: var(--text-hint); }
+    .porta-table tr.done { background: #f9fafb; }
+    .porta-col-time { font-size: 11px; color: var(--text-hint); white-space: nowrap; padding: 11px 8px !important; text-align: center; }
+    .porta-actions-cell { display: flex; gap: 2px; padding: 6px !important; white-space: nowrap; }
+    .porta-actions-cell button { border: none; background: none; cursor: pointer; padding: 6px; border-radius: 6px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .porta-actions-cell button:hover { background: var(--bg); }
+    .porta-actions-cell button.act-check.done { color: var(--green-text); }
+    .porta-actions-cell button.act-check:not(.done):hover { color: var(--green-text); }
+    .porta-actions-cell button.act-del:hover { color: var(--red-text); }
+    .btn-add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; margin-bottom: 12px; }
+    .btn-add-row:hover { opacity: 0.85; }
+
+    /* ── IMPRESSÃO ── */
+    .print-area { display: none; }
+    @media print {
+      body.printing-porta > *:not(.print-area) { display: none !important; }
+      body.printing-porta .print-area { display: block !important; padding: 20px; }
+      .print-area h2 { font-size: 16px; margin-bottom: 4px; }
+      .print-area .print-sub { font-size: 12px; color: #555; margin-bottom: 14px; }
+      .print-area .print-row { padding: 8px 0; border-bottom: 1px solid #ccc; font-size: 14px; }
+      .print-area .print-row b { font-size: 14px; }
+      .print-area .print-time { float: right; color: #666; font-size: 12px; }
+    }
+
     @media (max-width: 400px) {
       .main { padding: 14px 12px; }
       .form-card { padding: 16px; }
@@ -190,8 +228,9 @@
 </div>
 
 <div class="tabs">
-  <button class="tab active" id="tab-new"  onclick="switchTab('new')"><i class="ti ti-plus"></i> Novo paciente</button>
-  <button class="tab"        id="tab-list" onclick="switchTab('list')"><i class="ti ti-layout-list"></i> Enfermaria</button>
+  <button class="tab active" id="tab-new"   onclick="switchTab('new')"><i class="ti ti-plus"></i> Novo</button>
+  <button class="tab"        id="tab-list"  onclick="switchTab('list')"><i class="ti ti-layout-list"></i> Enfermaria</button>
+  <button class="tab"        id="tab-porta" onclick="switchTab('porta')"><i class="ti ti-door"></i> Porta</button>
 </div>
 
 <!-- NOVO -->
@@ -291,8 +330,32 @@
   <div id="edit-content"></div>
 </div>
 
+<!-- PORTA -->
+<div class="main main-wide" id="view-porta" style="display:none">
+  <div class="list-toolbar">
+    <span class="list-info" id="porta-info">Carregando...</span>
+    <div style="display:flex;gap:6px">
+      <button class="btn-clear" style="color:var(--blue-text);border-color:#93c5fd" onclick="printPorta()">
+        <i class="ti ti-printer"></i> Imprimir
+      </button>
+      <button class="btn-clear" onclick="confirmClearPorta()">
+        <i class="ti ti-trash"></i> Limpar
+      </button>
+    </div>
+  </div>
+  <button class="btn-add-row" onclick="addPortaRow()"><i class="ti ti-plus"></i> Adicionar paciente</button>
+  <div id="porta-list"></div>
+</div>
+
 <div class="sync" id="sync"><i class="ti ti-cloud-upload" style="font-size:13px"></i> Salvando...</div>
 <div class="toast" id="toast"></div>
+
+<!-- ÁREA DE IMPRESSÃO -->
+<div class="print-area" id="print-area">
+  <h2>Pendências — Porta (plantão)</h2>
+  <div class="print-sub" id="print-sub"></div>
+  <div id="print-list"></div>
+</div>
 
 <script>
 let patients = [];
@@ -300,6 +363,8 @@ let newStatus = [], newPrio = '', newPends = [];
 let editStatus = [], editPrio = '', editPends = [];
 let editingId = null;
 let currentFilter = 'todos';
+
+let portaItems = [];
 
 const statusInfo = {
   'concluido':     { label:'Concluído',     color:'green',  icon:'ti-circle-check' },
@@ -349,19 +414,31 @@ function updateBadge() {
 
 // ── TABS ──
 function switchTab(tab) {
-  ['new','list','detail','edit'].forEach(v =>
+  ['new','list','detail','edit','porta'].forEach(v =>
     document.getElementById('view-'+v).style.display = 'none');
   document.getElementById('view-'+tab).style.display = 'block';
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   const t = document.getElementById('tab-'+tab);
   if (t) t.classList.add('active');
   if (tab === 'list') renderList();
+  if (tab === 'porta') loadPorta();
 }
 
 function jump(e, id) {
   if (e.key === 'Enter') { e.preventDefault(); document.getElementById(id)?.focus(); }
 }
 function gv(id) { return document.getElementById(id)?.value?.trim() || ''; }
+
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function horaFormat(dt) {
+  const d = new Date(dt);
+  return d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+}
 
 // ── CHIP TOGGLES ──
 function toggleChip(el, arrName, selClass) {
@@ -728,6 +805,147 @@ function toast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
+
+// ══════════════════════════════════════════
+// ── PORTA (tabela de células editáveis) ──
+// ══════════════════════════════════════════
+
+async function loadPorta() {
+  try {
+    portaItems = await api('GET', '/api/porta');
+    renderPorta();
+  } catch(e) { toast('Erro ao conectar com o servidor'); }
+}
+
+function renderPorta() {
+  const pendentes = portaItems.filter(p => !p.concluido).length;
+  document.getElementById('porta-info').textContent = `${pendentes} pendente${pendentes!==1?'s':''} · ${portaItems.length} total`;
+  const wrap = document.getElementById('porta-list');
+  if (!portaItems.length) {
+    wrap.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>Nenhum paciente aguardando exame.<br>Clique em "Adicionar paciente" para começar.</p></div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    <div class="porta-table-wrap">
+      <table class="porta-table">
+        <thead>
+          <tr><th>Nome</th><th>Exame</th><th>Notas</th><th>Hora</th><th></th></tr>
+        </thead>
+        <tbody>${portaItems.map(portaRowHtml).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+function portaRowHtml(p) {
+  return `<tr class="${p.concluido?'done':''}" data-id="${p._id}">
+    <td><input class="cell-input" value="${escapeHtml(p.nome)}" placeholder="Nome" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
+    <td><input class="cell-input" value="${escapeHtml(p.exame)}" placeholder="Exame" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
+    <td><input class="cell-input" value="${escapeHtml(p.queixa)}" placeholder="Notas" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
+    <td class="porta-col-time">${horaFormat(p.criadoEm)}</td>
+    <td class="porta-actions-cell">
+      <button class="act-check ${p.concluido?'done':''}" onclick="togglePortaConcluido('${p._id}')" title="${p.concluido?'Reabrir':'Concluir'}">
+        <i class="ti ${p.concluido?'ti-rotate-clockwise':'ti-check'}"></i>
+      </button>
+      <button class="act-del" onclick="deletePortaItem('${p._id}')" title="Remover">
+        <i class="ti ti-trash"></i>
+      </button>
+    </td>
+  </tr>`;
+}
+
+// Enter move para a próxima célula da linha; na última célula, cria nova linha
+function cellEnter(e, id) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  if (!row) return;
+  const inputs = row.querySelectorAll('input.cell-input');
+  const idx = Array.from(inputs).indexOf(e.target);
+  if (idx > -1 && idx < inputs.length - 1) {
+    inputs[idx+1].focus();
+  } else {
+    e.target.blur();
+    addPortaRow();
+  }
+}
+
+// Salva os 3 campos da linha (dispara no blur de qualquer célula)
+async function savePortaRow(id) {
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  if (!row) return;
+  const inputs = row.querySelectorAll('input.cell-input');
+  const nome   = inputs[0].value.trim().toUpperCase();
+  const exame  = inputs[1].value.trim().toUpperCase();
+  const queixa = inputs[2].value.trim().toUpperCase();
+  const item = portaItems.find(x => x._id === id);
+  if (!item) return;
+  if (item.nome === nome && item.exame === exame && item.queixa === queixa) return;
+  item.nome = nome; item.exame = exame; item.queixa = queixa;
+  try {
+    await api('PUT', `/api/porta/${id}`, { nome, exame, queixa });
+  } catch(e) { toast('Erro ao salvar'); }
+}
+
+async function addPortaRow() {
+  try {
+    const novo = await api('POST', '/api/porta', { nome:'', exame:'', queixa:'', concluido:false });
+    portaItems.unshift(novo);
+    renderPorta();
+    const row = document.querySelector(`tr[data-id="${novo._id}"]`);
+    row?.querySelector('input.cell-input')?.focus();
+  } catch(e) { toast('Erro ao adicionar'); }
+}
+
+async function togglePortaConcluido(id) {
+  const idx = portaItems.findIndex(x => x._id === id);
+  if (idx === -1) return;
+  const novoVal = !portaItems[idx].concluido;
+  try {
+    const updated = await api('PUT', `/api/porta/${id}`, { concluido: novoVal });
+    const item = { ...portaItems[idx], ...updated };
+    portaItems.splice(idx, 1);
+    if (novoVal) portaItems.push(item); else portaItems.unshift(item);
+    renderPorta();
+    toast(novoVal ? 'Concluído ✓' : 'Reaberto');
+  } catch(e) { toast('Erro ao atualizar'); }
+}
+
+async function deletePortaItem(id) {
+  if (!confirm('Remover este item?')) return;
+  try {
+    await api('DELETE', `/api/porta/${id}`);
+    portaItems = portaItems.filter(x => x._id !== id);
+    renderPorta();
+    toast('Removido');
+  } catch(e) { toast('Erro ao remover'); }
+}
+
+async function confirmClearPorta() {
+  if (!portaItems.length) { toast('Nada para limpar'); return; }
+  if (!confirm(`Limpar todos os ${portaItems.length} itens da Porta?`)) return;
+  try {
+    await api('DELETE', '/api/porta');
+    portaItems = [];
+    renderPorta();
+    toast('Lista limpa!');
+  } catch(e) { toast('Erro ao limpar'); }
+}
+
+function printPorta() {
+  const pendentes = portaItems.filter(p => !p.concluido);
+  if (!pendentes.length) { toast('Nenhuma pendência para imprimir'); return; }
+  document.getElementById('print-sub').textContent =
+    new Date().toLocaleString('pt-BR') + ' · ' + pendentes.length + ' pendente' + (pendentes.length!==1?'s':'');
+  document.getElementById('print-list').innerHTML = pendentes.map(p => `
+    <div class="print-row">
+      <b>${escapeHtml(p.nome)}</b> — ${escapeHtml(p.exame)}${p.queixa?' — '+escapeHtml(p.queixa):''}
+      <span class="print-time">${horaFormat(p.criadoEm)}</span>
+    </div>`).join('');
+  document.body.classList.add('printing-porta');
+  window.print();
+  setTimeout(() => document.body.classList.remove('printing-porta'), 500);
+}
+window.addEventListener('afterprint', () => document.body.classList.remove('printing-porta'));
 
 document.addEventListener('DOMContentLoaded', () => {
   loadPatients().then(() => {});
