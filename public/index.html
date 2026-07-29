@@ -71,7 +71,7 @@
     .field input, .field textarea { width: 100%; padding: 9px 12px; font-size: 14px; font-family: inherit; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
     .field input:focus, .field textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(79,142,247,0.1); background: var(--surface); }
     .field input::placeholder, .field textarea::placeholder { color: var(--text-hint); }
-    .field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+    .field textarea { resize: none; overflow-y: hidden; min-height: 64px; line-height: 1.5; }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .chip-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
@@ -97,6 +97,12 @@
     .list-info { font-size: 13px; color: var(--text-muted); }
     .btn-clear { font-size: 12px; font-weight: 500; color: var(--red-text); background: none; border: 1px solid #fecaca; border-radius: var(--radius-xs); padding: 5px 10px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
+    .list-toolbar-right { display: flex; align-items: center; gap: 8px; }
+    .view-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-xs); overflow: hidden; }
+    .view-toggle-btn { border: none; background: var(--surface); color: var(--text-muted); width: 30px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+    .view-toggle-btn + .view-toggle-btn { border-left: 1px solid var(--border); }
+    .view-toggle-btn.active { background: var(--blue); color: #fff; }
+
     .filters { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
     .filter-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-muted); cursor: pointer; transition: all 0.12s; }
     .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
@@ -121,6 +127,13 @@
     .pc-hda   { font-size: 13px; color: var(--text-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pc-obs   { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-style: italic; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .pc-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+
+    /* GRADE (cards completos, sem truncar) */
+    .patient-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; align-items: start; }
+    .patient-grid .patient-card { margin-bottom: 0; }
+    .pc-hda-full { font-size: 13px; color: var(--text-muted); margin-top: 3px; white-space: normal; line-height: 1.45; }
+    .pc-obs-full { font-size: 12px; color: var(--text-muted); margin-top: 6px; font-style: italic; white-space: normal; line-height: 1.45; padding-top: 6px; border-top: 1px dashed var(--border); }
+    .pc-atb-full { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
     .mpill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
     .mpill-green  { background: var(--green-bg);  color: var(--green-text); }
@@ -173,12 +186,12 @@
 
     /* ── PORTA (tabela de células) ── */
     .porta-table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
-    .porta-table { width: 100%; min-width: 480px; border-collapse: collapse; background: var(--surface); }
+    .porta-table { width: 100%; min-width: 640px; border-collapse: collapse; background: var(--surface); }
     .porta-table th { text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-hint); padding: 10px; background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; }
     .porta-table td { padding: 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .porta-table tr:last-child td { border-bottom: none; }
-    .porta-table th:nth-child(1), .porta-table td:nth-child(1) { width: 26%; }
-    .porta-table th:nth-child(2), .porta-table td:nth-child(2) { width: 20%; }
+    .porta-table th:nth-child(1), .porta-table td:nth-child(1) { width: 20%; }
+    .porta-table th:nth-child(2), .porta-table td:nth-child(2) { width: 34%; }
     .porta-table th:nth-child(4), .porta-table td:nth-child(4) { width: 58px; }
     .porta-table th:nth-child(5), .porta-table td:nth-child(5) { width: 78px; }
     .cell-input { width: 100%; border: none; background: transparent; padding: 11px 10px; font-size: 13px; font-family: inherit; color: var(--text); outline: none; }
@@ -195,6 +208,13 @@
     .porta-actions-cell button.act-del:hover { color: var(--red-text); }
     .btn-add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; margin-bottom: 12px; }
     .btn-add-row:hover { opacity: 0.85; }
+
+    .porta-pend-cell { padding: 8px !important; }
+    .porta-pend-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+    .porta-pend-chip { font-size: 10.5px; font-weight: 500; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.12s; }
+    .porta-pend-chip:hover { border-color: #c0c8d8; color: var(--text); }
+    .porta-pend-chip.active { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
+    .porta-table tr.done .porta-pend-chip.active { background: var(--border); color: var(--text-hint); border-color: var(--border); }
 
     /* ── IMPRESSÃO ── */
     .print-area { display: none; }
@@ -280,7 +300,7 @@
 
     <div class="section-label">Observações</div>
     <div class="field">
-      <textarea id="f-obs" placeholder="Notas, alertas, contexto clínico..."></textarea>
+      <textarea id="f-obs" placeholder="Notas, alertas, contexto clínico..." oninput="autoResizeTextarea(this)"></textarea>
     </div>
 
     <div class="section-label">Status</div>
@@ -308,7 +328,13 @@
 <div class="main" id="view-list" style="display:none">
   <div class="list-toolbar">
     <span class="list-info" id="list-info">Carregando...</span>
-    <button class="btn-clear" onclick="confirmClear()"><i class="ti ti-trash"></i> Limpar plantão</button>
+    <div class="list-toolbar-right">
+      <div class="view-toggle">
+        <button class="view-toggle-btn active" id="vt-list" onclick="setViewMode('list')" title="Lista"><i class="ti ti-layout-list"></i></button>
+        <button class="view-toggle-btn" id="vt-grid" onclick="setViewMode('grid')" title="Grade"><i class="ti ti-layout-grid"></i></button>
+      </div>
+      <button class="btn-clear" onclick="confirmClear()"><i class="ti ti-trash"></i> Limpar plantão</button>
+    </div>
   </div>
   <div class="filters">
     <button class="filter-btn active" data-filter="todos"         onclick="setFilter(this)">Todos</button>
@@ -365,6 +391,7 @@ let newStatus = [], newPrio = '', newPends = [];
 let editStatus = [], editPrio = '', editPends = [];
 let editingId = null;
 let currentFilter = 'todos';
+let viewMode = localStorage.getItem('enfermariaView') || 'list';
 
 let portaItems = [];
 
@@ -384,6 +411,13 @@ const pendInfo = {
   'rx':     { label:'Aguardando RX',   icon:'ti-lungs' },
   'ecg':    { label:'Aguardando ECG',  icon:'ti-activity-heartbeat' },
   'av-ext': { label:'Av. Externa',     icon:'ti-stethoscope' }
+};
+const portaPendInfo = {
+  'labs':      'Labs',
+  'eas':       'EAS',
+  'ecg':       'ECG',
+  'rx':        'RX',
+  'medicacao': 'Medicação'
 };
 
 // ── API ──
@@ -440,6 +474,16 @@ function escapeHtml(s) {
 function horaFormat(dt) {
   const d = new Date(dt);
   return d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+}
+
+// ── TEXTAREA AUTO-RESIZE ──
+function autoResizeTextarea(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  const max = 420;
+  const next = Math.min(el.scrollHeight, max);
+  el.style.height = next + 'px';
+  el.style.overflowY = el.scrollHeight > max ? 'auto' : 'hidden';
 }
 
 // ── CHIP TOGGLES ──
@@ -514,6 +558,8 @@ function clearNewForm() {
   document.querySelectorAll('#status-grid-new .chip, #prio-grid-new .chip, #pend-grid-new .chip').forEach(b => {
     b.className = 'chip';
   });
+  const obsEl = document.getElementById('f-obs');
+  if (obsEl) { obsEl.style.height = ''; obsEl.style.overflowY = 'hidden'; }
   document.getElementById('f-leito')?.focus();
 }
 
@@ -522,6 +568,15 @@ function sortPts() {
     const na = parseInt(a.leito)||0, nb = parseInt(b.leito)||0;
     return na !== nb ? na - nb : a.leito.localeCompare(b.leito);
   });
+}
+
+// ── VIEW MODE (lista / grade) ──
+function setViewMode(mode) {
+  viewMode = mode;
+  localStorage.setItem('enfermariaView', mode);
+  document.getElementById('vt-list')?.classList.toggle('active', mode === 'list');
+  document.getElementById('vt-grid')?.classList.toggle('active', mode === 'grid');
+  renderList();
 }
 
 // ── FILTERS ──
@@ -545,39 +600,65 @@ function renderList() {
   document.getElementById('list-info').textContent = `${ativos} ativo${ativos!==1?'s':''} · ${patients.length} total`;
   const list = document.getElementById('patient-list');
   if (!filtered.length) {
+    list.className = '';
     list.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>${
       currentFilter==='todos' ? 'Nenhum paciente ainda.<br>Adicione pelo botão Novo paciente.' : 'Nenhum paciente nesta categoria.'
     }</p></div>`;
     return;
   }
-  list.innerHTML = filtered.map(p => {
-    const statuses = p.status || [];
-    const pends    = p.pendencias || [];
-    const firstStatus = statuses[0] ? statusInfo[statuses[0]] : null;
-    const borderClass = p.evolucaoConcluida ? 'bl-green' : (firstStatus ? 'bl-'+firstStatus.color : '');
-    const concluidoClass = p.evolucaoConcluida ? 'concluido-final' : '';
-    const prioI = p.prioridade ? prioInfo[p.prioridade] : null;
-    const dias = calcDias(p.dataIntern);
+  if (viewMode === 'grid') {
+    list.className = 'patient-grid';
+    list.innerHTML = filtered.map(renderCardFull).join('');
+  } else {
+    list.className = '';
+    list.innerHTML = filtered.map(renderCardCompact).join('');
+  }
+}
 
-    const statusPills = statuses.map(s => {
-      const si = statusInfo[s];
-      return si ? `<span class="mpill mpill-${si.color}">${si.label}</span>` : '';
-    }).join('');
-    const prioPill  = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
-    const atbPill   = p.atb ? `<span class="mpill mpill-blue">💊 ${p.atb}${p.diaAtb?' D'+p.diaAtb:''}</span>` : '';
-    const pendPills = pends.map(pk => {
-      const pi = pendInfo[pk];
-      return pi ? `<span class="mpill mpill-yellow">⚠ ${pi.label}</span>` : '';
-    }).join('');
+function cardParts(p) {
+  const statuses = p.status || [];
+  const pends    = p.pendencias || [];
+  const firstStatus = statuses[0] ? statusInfo[statuses[0]] : null;
+  const borderClass = p.evolucaoConcluida ? 'bl-green' : (firstStatus ? 'bl-'+firstStatus.color : '');
+  const concluidoClass = p.evolucaoConcluida ? 'concluido-final' : '';
+  const prioI = p.prioridade ? prioInfo[p.prioridade] : null;
+  const dias = calcDias(p.dataIntern);
 
-    return `<div class="patient-card ${borderClass} ${concluidoClass}" onclick="showDetail('${p._id}')">
-      <div class="pc-leito">Leito ${p.leito}${dias!==''?' · '+dias+'d':''}</div>
-      <div class="pc-nome">${p.nome}</div>
-      ${p.hda ? `<div class="pc-hda">${p.hda}</div>` : ''}
-      ${p.obs ? `<div class="pc-obs">📝 ${p.obs}</div>` : ''}
-      <div class="pc-chips">${statusPills}${prioPill}${atbPill}${pendPills}</div>
-    </div>`;
+  const statusPills = statuses.map(s => {
+    const si = statusInfo[s];
+    return si ? `<span class="mpill mpill-${si.color}">${si.label}</span>` : '';
   }).join('');
+  const prioPill  = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
+  const atbPill   = p.atb ? `<span class="mpill mpill-blue">💊 ${p.atb}${p.diaAtb?' D'+p.diaAtb:''}</span>` : '';
+  const pendPills = pends.map(pk => {
+    const pi = pendInfo[pk];
+    return pi ? `<span class="mpill mpill-yellow">⚠ ${pi.label}</span>` : '';
+  }).join('');
+
+  return { borderClass, concluidoClass, dias, statusPills, prioPill, atbPill, pendPills };
+}
+
+function renderCardCompact(p) {
+  const { borderClass, concluidoClass, dias, statusPills, prioPill, atbPill, pendPills } = cardParts(p);
+  return `<div class="patient-card ${borderClass} ${concluidoClass}" onclick="showDetail('${p._id}')">
+    <div class="pc-leito">Leito ${p.leito}${dias!==''?' · '+dias+'d':''}</div>
+    <div class="pc-nome">${p.nome}</div>
+    ${p.hda ? `<div class="pc-hda">${p.hda}</div>` : ''}
+    ${p.obs ? `<div class="pc-obs">📝 ${p.obs}</div>` : ''}
+    <div class="pc-chips">${statusPills}${prioPill}${atbPill}${pendPills}</div>
+  </div>`;
+}
+
+function renderCardFull(p) {
+  const { borderClass, concluidoClass, dias, statusPills, prioPill, atbPill, pendPills } = cardParts(p);
+  return `<div class="patient-card ${borderClass} ${concluidoClass}" onclick="showDetail('${p._id}')">
+    <div class="pc-leito">Leito ${p.leito}${dias!==''?' · '+dias+'d':''}</div>
+    <div class="pc-nome">${p.nome}</div>
+    ${p.hda ? `<div class="pc-hda-full">${p.hda}</div>` : ''}
+    ${p.atb ? `<div class="pc-atb-full">💊 ${p.atb}${p.diaAtb?' — Dia '+p.diaAtb:''}</div>` : ''}
+    <div class="pc-chips">${statusPills}${prioPill}${atbPill}${pendPills}</div>
+    ${p.obs ? `<div class="pc-obs-full">📝 ${p.obs}</div>` : ''}
+  </div>`;
 }
 
 // ── DETAIL ──
@@ -751,7 +832,7 @@ function startEdit(id) {
         <button class="chip ${pe('av-ext')}" data-val="av-ext" onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-stethoscope"></i> Av. Externa</button>
       </div>
       <div class="section-label">Observações</div>
-      <div class="field"><textarea id="e-obs">${p.obs||''}</textarea></div>
+      <div class="field"><textarea id="e-obs" oninput="autoResizeTextarea(this)">${p.obs||''}</textarea></div>
       <div class="section-label">Status</div>
       <div class="chip-grid" id="edit-status-grid">
         <button class="chip ${sc('concluido')}"     data-val="concluido"     onclick="toggleChip(this,'editStatus','sel-concluido')"><i class="ti ti-circle-check"></i> Concluído</button>
@@ -767,6 +848,8 @@ function startEdit(id) {
       </div>
       <button class="btn-save" id="btn-save-edit" onclick="saveEdit()"><i class="ti ti-device-floppy"></i> Salvar alterações</button>
     </div>`;
+
+  autoResizeTextarea(document.getElementById('e-obs'));
 }
 
 async function saveEdit() {
@@ -836,17 +919,30 @@ function renderPorta() {
     <div class="porta-table-wrap">
       <table class="porta-table">
         <thead>
-          <tr><th>Nome</th><th>Exame</th><th>Notas</th><th>Hora</th><th></th></tr>
+          <tr><th>Nome</th><th>Pendências</th><th>Notas</th><th>Hora</th><th></th></tr>
         </thead>
         <tbody>${portaItems.map(portaRowHtml).join('')}</tbody>
       </table>
     </div>`;
 }
 
+function portaSelected(p) {
+  return (p.exame||'').split(',').map(s=>s.trim()).filter(Boolean);
+}
+
+function portaPendChipsHtml(p) {
+  const sel = portaSelected(p);
+  return `<div class="porta-pend-chips" data-id="${p._id}">
+    ${Object.entries(portaPendInfo).map(([k,label]) =>
+      `<button type="button" class="porta-pend-chip${sel.includes(k)?' active':''}" data-val="${k}" onclick="togglePortaPend('${p._id}','${k}')">${label}</button>`
+    ).join('')}
+  </div>`;
+}
+
 function portaRowHtml(p) {
   return `<tr class="${p.concluido?'done':''}" data-id="${p._id}">
     <td><input class="cell-input" value="${escapeHtml(p.nome)}" placeholder="Nome" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
-    <td><input class="cell-input" value="${escapeHtml(p.exame)}" placeholder="Exame" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
+    <td class="porta-pend-cell">${portaPendChipsHtml(p)}</td>
     <td><input class="cell-input" value="${escapeHtml(p.queixa)}" placeholder="Notas" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
     <td class="porta-col-time">${horaFormat(p.criadoEm)}</td>
     <td class="porta-actions-cell">
@@ -876,20 +972,34 @@ function cellEnter(e, id) {
   }
 }
 
-// Salva os 3 campos da linha (dispara no blur de qualquer célula)
+// Salva nome + notas (dispara no blur de qualquer célula de texto)
 async function savePortaRow(id) {
   const row = document.querySelector(`tr[data-id="${id}"]`);
   if (!row) return;
   const inputs = row.querySelectorAll('input.cell-input');
   const nome   = inputs[0].value.trim().toUpperCase();
-  const exame  = inputs[1].value.trim().toUpperCase();
-  const queixa = inputs[2].value.trim().toUpperCase();
+  const queixa = inputs[1].value.trim().toUpperCase();
   const item = portaItems.find(x => x._id === id);
   if (!item) return;
-  if (item.nome === nome && item.exame === exame && item.queixa === queixa) return;
-  item.nome = nome; item.exame = exame; item.queixa = queixa;
+  if (item.nome === nome && item.queixa === queixa) return;
+  item.nome = nome; item.queixa = queixa;
   try {
-    await api('PUT', `/api/porta/${id}`, { nome, exame, queixa });
+    await api('PUT', `/api/porta/${id}`, { nome, queixa });
+  } catch(e) { toast('Erro ao salvar'); }
+}
+
+// Toggle de um chip de pendência (Labs / EAS / ECG / RX / Medicação)
+async function togglePortaPend(id, key) {
+  const item = portaItems.find(x => x._id === id);
+  if (!item) return;
+  const sel = portaSelected(item);
+  const idx = sel.indexOf(key);
+  if (idx === -1) sel.push(key); else sel.splice(idx,1);
+  item.exame = sel.join(',');
+  const btn = document.querySelector(`.porta-pend-chips[data-id="${id}"] .porta-pend-chip[data-val="${key}"]`);
+  if (btn) btn.classList.toggle('active');
+  try {
+    await api('PUT', `/api/porta/${id}`, { exame: item.exame });
   } catch(e) { toast('Erro ao salvar'); }
 }
 
@@ -941,6 +1051,11 @@ async function confirmClearPorta() {
   } catch(e) { toast('Erro ao limpar'); }
 }
 
+function portaPendLabel(exameStr) {
+  const sel = (exameStr||'').split(',').map(s=>s.trim()).filter(Boolean);
+  return sel.map(k => portaPendInfo[k] || k).join(', ');
+}
+
 function printPorta() {
   const pendentes = portaItems.filter(p => !p.concluido);
   if (!pendentes.length) { toast('Nenhuma pendência para imprimir'); return; }
@@ -948,7 +1063,7 @@ function printPorta() {
     new Date().toLocaleString('pt-BR') + ' · ' + pendentes.length + ' pendente' + (pendentes.length!==1?'s':'');
   document.getElementById('print-list').innerHTML = pendentes.map(p => `
     <div class="print-row">
-      <b>${escapeHtml(p.nome)}</b> — ${escapeHtml(p.exame)}${p.queixa?' — '+escapeHtml(p.queixa):''}
+      <b>${escapeHtml(p.nome)}</b>${p.exame?' — '+escapeHtml(portaPendLabel(p.exame)):''}${p.queixa?' — '+escapeHtml(p.queixa):''}
       <span class="print-time">${horaFormat(p.criadoEm)}</span>
     </div>`).join('');
   document.body.classList.add('printing-porta');
@@ -958,6 +1073,8 @@ function printPorta() {
 window.addEventListener('afterprint', () => document.body.classList.remove('printing-porta'));
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('vt-list')?.classList.toggle('active', viewMode === 'list');
+  document.getElementById('vt-grid')?.classList.toggle('active', viewMode === 'grid');
   loadPatients().then(() => {});
   api('GET', '/api/porta').then(items => { portaItems = items; updatePortaBadge(); }).catch(() => {});
 });
