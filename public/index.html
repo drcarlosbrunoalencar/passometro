@@ -209,6 +209,16 @@
     .btn-add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; margin-bottom: 12px; }
     .btn-add-row:hover { opacity: 0.85; }
 
+    /* ── ATB MÚLTIPLO ── */
+    .atb-row { display: grid; grid-template-columns: 1fr 84px 32px; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .atb-row input { width: 100%; padding: 9px 12px; font-size: 14px; font-family: inherit; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+    .atb-row input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(79,142,247,0.1); background: var(--surface); }
+    .atb-row input::placeholder { color: var(--text-hint); }
+    .atb-row-remove { border: none; background: var(--red-bg); color: var(--red-text); width: 32px; height: 36px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .atb-row-remove:hover { opacity: 0.85; }
+    .btn-add-atb { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 7px 12px; cursor: pointer; margin-bottom: 14px; }
+    .btn-add-atb:hover { opacity: 0.85; }
+
     .porta-pend-cell { padding: 8px !important; }
     .porta-pend-chips { display: flex; flex-wrap: wrap; gap: 4px; }
     .porta-pend-chip { font-size: 10.5px; font-weight: 500; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.12s; }
@@ -219,13 +229,18 @@
     /* ── IMPRESSÃO ── */
     .print-area { display: none; }
     @media print {
-      body.printing-porta > *:not(.print-area) { display: none !important; }
-      body.printing-porta .print-area { display: block !important; padding: 20px; }
+      body.printing > *:not(.print-area) { display: none !important; }
+      body.printing .print-area { display: block !important; padding: 20px; }
       .print-area h2 { font-size: 16px; margin-bottom: 4px; }
       .print-area .print-sub { font-size: 12px; color: #555; margin-bottom: 14px; }
       .print-area .print-row { padding: 8px 0; border-bottom: 1px solid #ccc; font-size: 14px; }
       .print-area .print-row b { font-size: 14px; }
       .print-area .print-time { float: right; color: #666; font-size: 12px; }
+      .print-area .print-patient { padding: 9px 0; border-bottom: 1px solid #ccc; font-size: 13px; }
+      .print-area .print-patient:last-child { border-bottom: none; }
+      .print-area .print-patient .pp-head { font-size: 14px; font-weight: 700; display: flex; justify-content: space-between; }
+      .print-area .print-patient .pp-line { margin-top: 3px; color: #333; }
+      .print-area .print-patient .pp-label { font-weight: 600; }
     }
 
     @media (max-width: 400px) {
@@ -275,20 +290,12 @@
     </div>
     <div class="field">
       <div class="field-label"><i class="ti ti-notes"></i> HDA / Diagnóstico</div>
-      <input id="f-hda" placeholder="Ex: DM2 descompensada, ICC" onkeydown="jump(event,'f-atb')">
+      <input id="f-hda" placeholder="Ex: DM2 descompensada, ICC" onkeydown="if(event.key==='Enter'){event.preventDefault(); document.querySelector('#atb-list-new input')?.focus();}">
     </div>
 
     <div class="section-label">Antibioticoterapia</div>
-    <div class="row2">
-      <div class="field">
-        <div class="field-label"><i class="ti ti-pill"></i> Antibiótico</div>
-        <input id="f-atb" placeholder="Ex: Pip/Tazo" onkeydown="jump(event,'f-dia-atb')">
-      </div>
-      <div class="field">
-        <div class="field-label"><i class="ti ti-hash"></i> Dia do ATB</div>
-        <input id="f-dia-atb" type="number" min="1" placeholder="Ex: 5" onkeydown="jump(event,'f-obs')">
-      </div>
-    </div>
+    <div id="atb-list-new"></div>
+    <button type="button" class="btn-add-atb" onclick="addAtbRow('new')"><i class="ti ti-plus"></i> Adicionar antibiótico</button>
 
     <div class="section-label">Pendências</div>
     <div class="chip-grid" id="pend-grid-new">
@@ -333,6 +340,7 @@
         <button class="view-toggle-btn active" id="vt-list" onclick="setViewMode('list')" title="Lista"><i class="ti ti-layout-list"></i></button>
         <button class="view-toggle-btn" id="vt-grid" onclick="setViewMode('grid')" title="Grade"><i class="ti ti-layout-grid"></i></button>
       </div>
+      <button class="btn-clear" style="color:var(--blue-text);border-color:#93c5fd" onclick="printEnfermaria()"><i class="ti ti-printer"></i> Imprimir</button>
       <button class="btn-clear" onclick="confirmClear()"><i class="ti ti-trash"></i> Limpar plantão</button>
     </div>
   </div>
@@ -380,7 +388,7 @@
 
 <!-- ÁREA DE IMPRESSÃO -->
 <div class="print-area" id="print-area">
-  <h2>Pendências — Porta (plantão)</h2>
+  <h2 id="print-title">Pendências — Porta (plantão)</h2>
   <div class="print-sub" id="print-sub"></div>
   <div id="print-list"></div>
 </div>
@@ -392,6 +400,8 @@ let editStatus = [], editPrio = '', editPends = [];
 let editingId = null;
 let currentFilter = 'todos';
 let viewMode = localStorage.getItem('enfermariaView') || 'list';
+let newAtbList = [{ nome:'', dia:'' }];
+let editAtbList = [{ nome:'', dia:'' }];
 
 let portaItems = [];
 
@@ -506,6 +516,51 @@ function selPrio(el, gridId, varName) {
   else editPrio = el.dataset.val;
 }
 
+// ── ATB MÚLTIPLO ──
+function parseAtb(p) {
+  if (!p.atb) return [];
+  try {
+    const parsed = JSON.parse(p.atb);
+    if (Array.isArray(parsed)) return parsed.map(a => ({ nome: a.nome||'', dia: a.dia||'' }));
+  } catch(e) {}
+  // formato legado: campo atb era texto simples + diaAtb separado
+  return [{ nome: p.atb, dia: p.diaAtb || '' }];
+}
+
+function renderAtbRows(prefix) {
+  const list = prefix === 'new' ? newAtbList : editAtbList;
+  const container = document.getElementById('atb-list-'+prefix);
+  if (!container) return;
+  container.innerHTML = list.map((row, i) => `
+    <div class="atb-row">
+      <input placeholder="Ex: Piperacilina/Tazobactam" value="${escapeHtml(row.nome)}" oninput="updateAtbField('${prefix}',${i},'nome',this.value)">
+      <input type="number" min="1" placeholder="Dia" value="${escapeHtml(row.dia)}" oninput="updateAtbField('${prefix}',${i},'dia',this.value)">
+      <button type="button" class="atb-row-remove" onclick="removeAtbRow('${prefix}',${i})" title="Remover"><i class="ti ti-x"></i></button>
+    </div>`).join('');
+}
+
+function updateAtbField(prefix, i, field, val) {
+  const list = prefix === 'new' ? newAtbList : editAtbList;
+  if (list[i]) list[i][field] = val;
+}
+
+function addAtbRow(prefix) {
+  const list = prefix === 'new' ? newAtbList : editAtbList;
+  list.push({ nome:'', dia:'' });
+  renderAtbRows(prefix);
+}
+
+function removeAtbRow(prefix, i) {
+  const list = prefix === 'new' ? newAtbList : editAtbList;
+  list.splice(i,1);
+  if (!list.length) list.push({ nome:'', dia:'' });
+  renderAtbRows(prefix);
+}
+
+function cleanAtbList(list) {
+  return list.map(a => ({ nome: (a.nome||'').trim(), dia: (a.dia||'').toString().trim() })).filter(a => a.nome);
+}
+
 // ── DATA INTERNAÇÃO → dias ──
 function calcDias(dataIntern) {
   if (!dataIntern) return '';
@@ -526,13 +581,14 @@ async function savePatient() {
   const btn = document.getElementById('btn-save-new');
   btn.disabled = true;
   btn.innerHTML = '<i class="ti ti-loader"></i> Salvando...';
+  const atbClean = cleanAtbList(newAtbList);
   try {
     const novo = await api('POST', '/api/pacientes', {
       leito, nome,
       dataIntern: gv('f-data-intern'),
       hda:        gv('f-hda'),
-      atb:        gv('f-atb'),
-      diaAtb:     gv('f-dia-atb'),
+      atb:        atbClean.length ? JSON.stringify(atbClean) : '',
+      diaAtb:     '',
       obs:        gv('f-obs'),
       status:     [...newStatus],
       prioridade: newPrio,
@@ -551,10 +607,12 @@ async function savePatient() {
 }
 
 function clearNewForm() {
-  ['f-leito','f-data-intern','f-nome','f-hda','f-atb','f-dia-atb','f-obs'].forEach(id => {
+  ['f-leito','f-data-intern','f-nome','f-hda','f-obs'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   newStatus = []; newPrio = ''; newPends = [];
+  newAtbList = [{ nome:'', dia:'' }];
+  renderAtbRows('new');
   document.querySelectorAll('#status-grid-new .chip, #prio-grid-new .chip, #pend-grid-new .chip').forEach(b => {
     b.className = 'chip';
   });
@@ -593,6 +651,35 @@ function getFiltered() {
   return patients.filter(p => (p.status||[]).includes(currentFilter));
 }
 
+// ── IMPRESSÃO ENFERMARIA ──
+function printEnfRowHtml(p) {
+  const dias = calcDias(p.dataIntern);
+  const atbList = parseAtb(p);
+  const atbTxt = atbList.map(a => `${a.nome}${a.dia?' (D'+a.dia+')':''}`).join(', ');
+  const pends = (p.pendencias||[]).map(pk => pendInfo[pk]?.label || pk).join(', ');
+  const statusTxt = (p.status||[]).map(s => statusInfo[s]?.label || s).join(', ');
+  return `<div class="print-patient">
+    <div class="pp-head"><span>Leito ${escapeHtml(p.leito)} — ${escapeHtml(p.nome)}</span><span>${dias!==''?dias+'d':''}</span></div>
+    ${p.hda?`<div class="pp-line"><span class="pp-label">HDA:</span> ${escapeHtml(p.hda)}</div>`:''}
+    ${atbTxt?`<div class="pp-line"><span class="pp-label">ATB:</span> ${escapeHtml(atbTxt)}</div>`:''}
+    ${pends?`<div class="pp-line"><span class="pp-label">Pendências:</span> ${escapeHtml(pends)}</div>`:''}
+    ${statusTxt?`<div class="pp-line"><span class="pp-label">Status:</span> ${escapeHtml(statusTxt)}</div>`:''}
+    ${p.obs?`<div class="pp-line"><span class="pp-label">Obs:</span> ${escapeHtml(p.obs)}</div>`:''}
+  </div>`;
+}
+
+function printEnfermaria() {
+  const filtered = getFiltered();
+  if (!filtered.length) { toast('Nenhum paciente para imprimir'); return; }
+  document.getElementById('print-title').textContent = 'Passagem de plantão — Enfermaria';
+  document.getElementById('print-sub').textContent =
+    new Date().toLocaleString('pt-BR') + ' · ' + filtered.length + ' paciente' + (filtered.length!==1?'s':'');
+  document.getElementById('print-list').innerHTML = filtered.map(printEnfRowHtml).join('');
+  document.body.classList.add('printing');
+  window.print();
+  setTimeout(() => document.body.classList.remove('printing'), 500);
+}
+
 // ── RENDER LIST ──
 function renderList() {
   const filtered = getFiltered();
@@ -629,13 +716,14 @@ function cardParts(p) {
     return si ? `<span class="mpill mpill-${si.color}">${si.label}</span>` : '';
   }).join('');
   const prioPill  = prioI ? `<span class="mpill mpill-${prioI.color}">${prioI.label}</span>` : '';
-  const atbPill   = p.atb ? `<span class="mpill mpill-blue">💊 ${p.atb}${p.diaAtb?' D'+p.diaAtb:''}</span>` : '';
+  const atbList   = parseAtb(p);
+  const atbPill   = atbList.map(a => `<span class="mpill mpill-blue">💊 ${escapeHtml(a.nome)}${a.dia?' D'+escapeHtml(String(a.dia)):''}</span>`).join('');
   const pendPills = pends.map(pk => {
     const pi = pendInfo[pk];
     return pi ? `<span class="mpill mpill-yellow">⚠ ${pi.label}</span>` : '';
   }).join('');
 
-  return { borderClass, concluidoClass, dias, statusPills, prioPill, atbPill, pendPills };
+  return { borderClass, concluidoClass, dias, statusPills, prioPill, atbList, atbPill, pendPills };
 }
 
 function renderCardCompact(p) {
@@ -650,12 +738,13 @@ function renderCardCompact(p) {
 }
 
 function renderCardFull(p) {
-  const { borderClass, concluidoClass, dias, statusPills, prioPill, atbPill, pendPills } = cardParts(p);
+  const { borderClass, concluidoClass, dias, statusPills, prioPill, atbList, atbPill, pendPills } = cardParts(p);
+  const atbLines = atbList.map(a => `💊 ${escapeHtml(a.nome)}${a.dia?' — Dia '+escapeHtml(String(a.dia)):''}`).join('<br>');
   return `<div class="patient-card ${borderClass} ${concluidoClass}" onclick="showDetail('${p._id}')">
     <div class="pc-leito">Leito ${p.leito}${dias!==''?' · '+dias+'d':''}</div>
     <div class="pc-nome">${p.nome}</div>
     ${p.hda ? `<div class="pc-hda-full">${p.hda}</div>` : ''}
-    ${p.atb ? `<div class="pc-atb-full">💊 ${p.atb}${p.diaAtb?' — Dia '+p.diaAtb:''}</div>` : ''}
+    ${atbLines ? `<div class="pc-atb-full">${atbLines}</div>` : ''}
     <div class="pc-chips">${statusPills}${prioPill}${atbPill}${pendPills}</div>
     ${p.obs ? `<div class="pc-obs-full">📝 ${p.obs}</div>` : ''}
   </div>`;
@@ -703,7 +792,7 @@ function showDetail(id) {
       </div>
       <div class="divider"></div>
       ${p.hda?`<div class="detail-row"><div class="dlabel"><i class="ti ti-notes"></i> HDA / Diagnóstico</div><div class="dvalue">${p.hda}</div></div>`:''}
-      ${(p.atb||p.diaAtb)?`<div class="detail-row"><div class="dlabel"><i class="ti ti-pill"></i> Antibiótico</div><div class="dvalue">${p.atb||'—'}${p.diaAtb?' — Dia '+p.diaAtb:''}</div></div>`:''}
+      ${parseAtb(p).length?`<div class="detail-row"><div class="dlabel"><i class="ti ti-pill"></i> Antibioticoterapia</div><div class="dvalue">${parseAtb(p).map(a=>`${escapeHtml(a.nome)}${a.dia?' — Dia '+escapeHtml(String(a.dia)):''}`).join('<br>')}</div></div>`:''}
       <div class="detail-row"><div class="dlabel"><i class="ti ti-alert-circle"></i> Pendências</div>${pendHtml}</div>
       ${p.obs?`<div class="detail-row"><div class="dlabel"><i class="ti ti-message"></i> Observações</div><div class="dvalue">${p.obs}</div></div>`:''}
       <div class="divider"></div>
@@ -802,6 +891,7 @@ function startEdit(id) {
   editStatus  = [...(p.status||[])];
   editPrio    = p.prioridade || '';
   editPends   = [...(p.pendencias||[])];
+  editAtbList = parseAtb(p).length ? parseAtb(p) : [{ nome:'', dia:'' }];
 
   document.getElementById('view-detail').style.display = 'none';
   document.getElementById('view-edit').style.display   = 'block';
@@ -820,10 +910,8 @@ function startEdit(id) {
       <div class="field"><div class="field-label"><i class="ti ti-user"></i> Nome</div><input id="e-nome" value="${p.nome}"></div>
       <div class="field"><div class="field-label"><i class="ti ti-notes"></i> HDA / Diagnóstico</div><input id="e-hda" value="${p.hda||''}"></div>
       <div class="section-label">Antibioticoterapia</div>
-      <div class="row2">
-        <div class="field"><div class="field-label"><i class="ti ti-pill"></i> Antibiótico</div><input id="e-atb" value="${p.atb||''}"></div>
-        <div class="field"><div class="field-label"><i class="ti ti-hash"></i> Dia ATB</div><input id="e-dia-atb" type="number" value="${p.diaAtb||''}"></div>
-      </div>
+      <div id="atb-list-edit"></div>
+      <button type="button" class="btn-add-atb" onclick="addAtbRow('edit')"><i class="ti ti-plus"></i> Adicionar antibiótico</button>
       <div class="section-label">Pendências</div>
       <div class="chip-grid" id="edit-pend-grid">
         <button class="chip ${pe('labs')}"   data-val="labs"   onclick="toggleChip(this,'editPends','sel-pend')"><i class="ti ti-flask"></i> Labs</button>
@@ -849,20 +937,22 @@ function startEdit(id) {
       <button class="btn-save" id="btn-save-edit" onclick="saveEdit()"><i class="ti ti-device-floppy"></i> Salvar alterações</button>
     </div>`;
 
+  renderAtbRows('edit');
   autoResizeTextarea(document.getElementById('e-obs'));
 }
 
 async function saveEdit() {
   const btn = document.getElementById('btn-save-edit');
   btn.disabled = true;
+  const atbClean = cleanAtbList(editAtbList);
   try {
     const updated = await api('PUT', `/api/pacientes/${editingId}`, {
       leito:      gv('e-leito'),
       dataIntern: gv('e-data-intern'),
       nome:       gv('e-nome'),
       hda:        gv('e-hda'),
-      atb:        gv('e-atb'),
-      diaAtb:     gv('e-dia-atb'),
+      atb:        atbClean.length ? JSON.stringify(atbClean) : '',
+      diaAtb:     '',
       obs:        gv('e-obs'),
       status:     [...editStatus],
       prioridade: editPrio,
@@ -1059,6 +1149,7 @@ function portaPendLabel(exameStr) {
 function printPorta() {
   const pendentes = portaItems.filter(p => !p.concluido);
   if (!pendentes.length) { toast('Nenhuma pendência para imprimir'); return; }
+  document.getElementById('print-title').textContent = 'Pendências — Porta (plantão)';
   document.getElementById('print-sub').textContent =
     new Date().toLocaleString('pt-BR') + ' · ' + pendentes.length + ' pendente' + (pendentes.length!==1?'s':'');
   document.getElementById('print-list').innerHTML = pendentes.map(p => `
@@ -1066,15 +1157,16 @@ function printPorta() {
       <b>${escapeHtml(p.nome)}</b>${p.exame?' — '+escapeHtml(portaPendLabel(p.exame)):''}${p.queixa?' — '+escapeHtml(p.queixa):''}
       <span class="print-time">${horaFormat(p.criadoEm)}</span>
     </div>`).join('');
-  document.body.classList.add('printing-porta');
+  document.body.classList.add('printing');
   window.print();
-  setTimeout(() => document.body.classList.remove('printing-porta'), 500);
+  setTimeout(() => document.body.classList.remove('printing'), 500);
 }
-window.addEventListener('afterprint', () => document.body.classList.remove('printing-porta'));
+window.addEventListener('afterprint', () => document.body.classList.remove('printing'));
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('vt-list')?.classList.toggle('active', viewMode === 'list');
   document.getElementById('vt-grid')?.classList.toggle('active', viewMode === 'grid');
+  renderAtbRows('new');
   loadPatients().then(() => {});
   api('GET', '/api/porta').then(items => { portaItems = items; updatePortaBadge(); }).catch(() => {});
 });
