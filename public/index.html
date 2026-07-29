@@ -5,43 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Passômetro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.9.0/dist/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f4f6f9;
+      --bg: #f2f4f1;
       --surface: #ffffff;
-      --border: #e8ecf0;
-      --border-focus: #4f8ef7;
-      --text: #1c2333;
-      --text-muted: #7a8599;
-      --text-hint: #b0b8c8;
-      --blue: #4f8ef7;
-      --blue-bg: #eef4ff;
-      --blue-text: #2563d4;
-      --green: #22c55e;
-      --green-bg: #f0fdf4;
-      --green-text: #166534;
-      --yellow: #f59e0b;
-      --yellow-bg: #fffbeb;
-      --yellow-text: #92400e;
-      --red: #ef4444;
-      --red-bg: #fef2f2;
-      --red-text: #991b1b;
-      --purple: #8b5cf6;
-      --purple-bg: #f5f3ff;
-      --purple-text: #5b21b6;
-      --teal: #14b8a6;
-      --teal-bg: #f0fdfa;
-      --teal-text: #115e59;
-      --radius: 12px;
+      --border: #dee3de;
+      --border-focus: #14555a;
+      --text: #12181a;
+      --text-muted: #586b67;
+      --text-hint: #9aa8a4;
+      --blue: #14555a;
+      --blue-bg: #e1edeb;
+      --blue-text: #0f4448;
+      --green: #3c8a5b;
+      --green-bg: #ecf6ef;
+      --green-text: #256240;
+      --yellow: #d3a017;
+      --yellow-bg: #fdf6e4;
+      --yellow-text: #8a6710;
+      --red: #d6362c;
+      --red-bg: #fbeae9;
+      --red-text: #a3281f;
+      --purple: #7c5cbf;
+      --purple-bg: #f0ecf9;
+      --purple-text: #5c4291;
+      --teal: #14555a;
+      --teal-bg: #e1edeb;
+      --teal-text: #0f4448;
+      --radius: 10px;
       --radius-sm: 8px;
       --radius-xs: 6px;
       --shadow: 0 1px 4px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --font-display: 'IBM Plex Sans Condensed', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
     }
-    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+    body.dark {
+      --bg: #0f1618;
+      --surface: #182324;
+      --border: #293b3c;
+      --border-focus: #57c2b6;
+      --text: #e6ecec;
+      --text-muted: #8ca3a0;
+      --text-hint: #607372;
+      --blue: #57c2b6;
+      --blue-bg: #20393a;
+      --blue-text: #8fe0d5;
+      --green: #4fae74;
+      --green-bg: #1c2e22;
+      --green-text: #7bd39a;
+      --yellow: #dab53e;
+      --yellow-bg: #2e2814;
+      --yellow-text: #eccb6c;
+      --red: #e2584a;
+      --red-bg: #34201e;
+      --red-text: #f0958a;
+      --purple: #a48ad9;
+      --purple-bg: #292139;
+      --purple-text: #c6b5ec;
+      --teal: #57c2b6;
+      --teal-bg: #20393a;
+      --teal-text: #8fe0d5;
+      --shadow: 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    body { font-family: 'IBM Plex Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; transition: background 0.2s, color 0.2s; }
+    .header-title, .pc-nome, .detail-name, .section-label, .btn-save, .btn-add-row, .btn-add-atb { font-family: var(--font-display); }
 
     .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .header-brand { display: flex; align-items: center; gap: 10px; }
@@ -57,8 +90,14 @@
     .tab-badge { font-size: 10px; font-weight: 700; background: var(--yellow-bg); color: var(--yellow-text); padding: 1px 7px; border-radius: 999px; margin-left: 2px; }
     .tab.active .tab-badge { background: var(--blue-bg); color: var(--blue-text); }
 
-    .main { padding: 20px 16px; max-width: 540px; margin: 0 auto; }
-    .main-wide { max-width: 720px; }
+    .main { padding: 20px 24px; max-width: none; margin: 0; }
+    .main-wide { max-width: none; }
+    .main#view-new .form-card,
+    .main#view-detail .detail-card,
+    .main#view-edit .form-card {
+      max-width: 640px;
+      margin: 0 auto;
+    }
 
     .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
 
@@ -261,7 +300,13 @@
       <div class="header-sub">Enfermaria · Hidrolândia</div>
     </div>
   </div>
-  <span class="badge-count" id="badge-count">—</span>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="badge-count" id="badge-count">—</span>
+    <button id="dark-toggle" onclick="toggleDarkMode()" title="Alternar modo escuro"
+      style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px">
+      <i class="ti ti-moon" id="dark-toggle-icon"></i>
+    </button>
+  </div>
 </div>
 
 <div class="tabs">
@@ -1162,6 +1207,21 @@ function printPorta() {
   setTimeout(() => document.body.classList.remove('printing'), 500);
 }
 window.addEventListener('afterprint', () => document.body.classList.remove('printing'));
+
+// ── MODO ESCURO (novo, isolado — não interfere na lógica existente) ──
+function toggleDarkMode() {
+  const isDark = document.body.classList.toggle('dark');
+  localStorage.setItem('passometroDark', isDark ? '1' : '0');
+  const icon = document.getElementById('dark-toggle-icon');
+  if (icon) icon.className = isDark ? 'ti ti-sun' : 'ti ti-moon';
+}
+if (localStorage.getItem('passometroDark') === '1') {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('dark');
+    const icon = document.getElementById('dark-toggle-icon');
+    if (icon) icon.className = 'ti ti-sun';
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('vt-list')?.classList.toggle('active', viewMode === 'list');
