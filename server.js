@@ -27,17 +27,18 @@ const PacienteSchema = new mongoose.Schema({
 const Paciente = mongoose.model('Paciente', PacienteSchema);
 
 const MapaSchema = new mongoose.Schema({
-  cartaoSus:   { type: String, default: '' },
-  nome:        { type: String, default: '' },
-  sexo:        { type: String, default: '' },   // 'M' | 'F' | ''
-  nascDia:     { type: String, default: '' },
-  nascMes:     { type: String, default: '' },
-  nascAno:     { type: String, default: '' },
-  cid:         { type: String, default: '' },
-  conduta:     { type: [String], default: [] }, // ex: ['rx','alta']
-  procedimento:{ type: String, default: '' },
-  quantidade:  { type: String, default: '' },
-  criadoEm:    { type: Date, default: Date.now }
+  cartaoSus:      { type: String, default: '' },
+  nome:           { type: String, default: '' },
+  sexo:           { type: String, default: '' },   // 'M' | 'F' | ''
+  nascDia:        { type: String, default: '' },
+  nascMes:        { type: String, default: '' },
+  nascAno:        { type: String, default: '' },
+  cid:            { type: String, default: '' },
+  conduta:        { type: [String], default: [] }, // ex: ['rx','alta']
+  classificacao:  { type: String, default: '' },   // 'azul' | 'verde' | 'amarela' | 'vermelha'
+  procedimento:   { type: String, default: '' },
+  quantidade:     { type: String, default: '' },
+  criadoEm:       { type: Date, default: Date.now }
 });
 const MapaItem = mongoose.model('MapaItem', MapaSchema);
 
