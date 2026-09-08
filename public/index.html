@@ -330,6 +330,9 @@
       .print-mapa th { background: #eee; text-transform: uppercase; font-size: 8px; text-align: center; }
       .print-mapa td.pm-n, .print-mapa td.pm-sexo, .print-mapa td.pm-risco { text-align: center; }
       .print-mapa .pm-risk-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+      .print-mapa .pm-tally { display: flex; gap: 14px; justify-content: flex-end; margin-top: 6px; font-size: 8.5px; color: #777; }
+      .print-mapa .pm-tally-item { display: flex; align-items: center; gap: 3px; }
+      .print-mapa .pm-tally .pm-risk-dot { width: 7px; height: 7px; }
       .print-mapa .pm-sign { display: flex; justify-content: space-between; margin-top: 26px; }
       .print-mapa .pm-sign div { width: 45%; text-align: center; font-size: 10px; border-top: 1px solid #111; padding-top: 4px; }
     }
@@ -467,7 +470,7 @@
 <div class="main main-wide" id="view-mapa" style="display:none">
   <div class="mapa-brand-bar">
     <div class="mapa-brand-side">
-      <img class="mapa-seal" src="/img/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
+      <img class="mapa-seal" src="/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
       <div class="mapa-brand-text"><b>SUS</b>Sistema Único<br>de Saúde</div>
     </div>
     <div class="mapa-brand-title">
@@ -476,7 +479,7 @@
     </div>
     <div class="mapa-brand-side" style="justify-content:flex-end;text-align:right">
       <div class="mapa-brand-text"><b>Prefeitura Municipal</b>Aparecida de Goiânia<br>Secretaria Municipal de Saúde</div>
-      <img class="mapa-seal" src="/img/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
+      <img class="mapa-seal" src="/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
     </div>
   </div>
   <div class="mapa-risk-summary" id="mapa-risk-summary"></div>
@@ -1363,11 +1366,17 @@ function printMapa() {
       <td class="pm-n">${escapeHtml(p.quantidade)}</td>
     </tr>`).join('');
 
+  const contagem = { azul:0, verde:0, amarela:0, vermelha:0 };
+  preenchidos.forEach(p => { if (p.classificacao && contagem[p.classificacao] !== undefined) contagem[p.classificacao]++; });
+  const tallyHtml = Object.entries(mapaRiscoInfo).map(([k,info]) =>
+    `<span class="pm-tally-item"><span class="pm-risk-dot" style="background:${info.hex}"></span>${info.label}: ${contagem[k]}</span>`
+  ).join('');
+
   document.getElementById('print-area').className = 'print-area print-mapa';
   document.getElementById('print-area').innerHTML = `
     <div class="pm-brand">
       <div class="pm-brand-side">
-        <img class="pm-seal" src="/img/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
+        <img class="pm-seal" src="/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
         <div class="pm-brand-text"><b>SUS</b>Sistema Único de Saúde</div>
       </div>
       <div class="pm-brand-center">
@@ -1376,7 +1385,7 @@ function printMapa() {
       </div>
       <div class="pm-brand-side right">
         <div class="pm-brand-text"><b>Prefeitura Municipal</b>Aparecida de Goiânia · Sec. Municipal de Saúde</div>
-        <img class="pm-seal" src="/img/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
+        <img class="pm-seal" src="/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
       </div>
     </div>
     <div class="pm-fields">
@@ -1391,6 +1400,7 @@ function printMapa() {
       <thead><tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Classificação</th><th>Conduta</th><th>Procedimento SIA-SUS</th><th>Qtd.</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
     </table>
+    <div class="pm-tally">${tallyHtml}</div>
     <div class="pm-sign">
       <div>Assinatura e carimbo</div>
       <div>Assinatura e carimbo do chefe</div>
