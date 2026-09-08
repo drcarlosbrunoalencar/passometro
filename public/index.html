@@ -223,28 +223,10 @@
     .sync { position: fixed; top: 62px; right: 12px; font-size: 11px; color: var(--text-hint); display: flex; align-items: center; gap: 4px; opacity: 0; transition: opacity 0.2s; }
     .sync.show { opacity: 1; }
 
-    /* ── PORTA (tabela de células) ── */
-    .porta-table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
-    .porta-table { width: 100%; min-width: 640px; border-collapse: collapse; background: var(--surface); }
-    .porta-table th { text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-hint); padding: 10px; background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; }
-    .porta-table td { padding: 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    .porta-table tr:last-child td { border-bottom: none; }
-    .porta-table th:nth-child(1), .porta-table td:nth-child(1) { width: 20%; }
-    .porta-table th:nth-child(2), .porta-table td:nth-child(2) { width: 34%; }
-    .porta-table th:nth-child(4), .porta-table td:nth-child(4) { width: 58px; }
-    .porta-table th:nth-child(5), .porta-table td:nth-child(5) { width: 78px; }
+
     .cell-input { width: 100%; border: none; background: transparent; padding: 11px 10px; font-size: 13px; font-family: inherit; color: var(--text); outline: none; }
     .cell-input:focus { background: var(--blue-bg); }
     .cell-input::placeholder { color: var(--text-hint); }
-    .porta-table tr.done .cell-input { text-decoration: line-through; color: var(--text-hint); }
-    .porta-table tr.done { background: #f9fafb; }
-    .porta-col-time { font-size: 11px; color: var(--text-hint); white-space: nowrap; padding: 11px 8px !important; text-align: center; }
-    .porta-actions-cell { display: flex; gap: 2px; padding: 6px !important; white-space: nowrap; }
-    .porta-actions-cell button { border: none; background: none; cursor: pointer; padding: 6px; border-radius: 6px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 15px; }
-    .porta-actions-cell button:hover { background: var(--bg); }
-    .porta-actions-cell button.act-check.done { color: var(--green-text); }
-    .porta-actions-cell button.act-check:not(.done):hover { color: var(--green-text); }
-    .porta-actions-cell button.act-del:hover { color: var(--red-text); }
     .btn-add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; margin-bottom: 12px; }
     .btn-add-row:hover { opacity: 0.85; }
 
@@ -258,12 +240,36 @@
     .btn-add-atb { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--blue-text); background: var(--blue-bg); border: 1px solid #93c5fd; border-radius: var(--radius-sm); padding: 7px 12px; cursor: pointer; margin-bottom: 14px; }
     .btn-add-atb:hover { opacity: 0.85; }
 
-    .porta-pend-cell { padding: 8px !important; }
-    .porta-pend-chips { display: flex; flex-wrap: wrap; gap: 4px; }
-    .porta-pend-chip { font-size: 10.5px; font-weight: 500; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.12s; }
-    .porta-pend-chip:hover { border-color: #c0c8d8; color: var(--text); }
-    .porta-pend-chip.active { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow); }
-    .porta-table tr.done .porta-pend-chip.active { background: var(--border); color: var(--text-hint); border-color: var(--border); }
+    /* ── MAPA DIÁRIO ── */
+    .mapa-header-fields { display: grid; grid-template-columns: 2fr 1.6fr 1fr 1fr 1.4fr 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }
+    .mapa-header-fields .field { margin-bottom: 0; }
+    .mapa-header-fields .field-label { font-size: 10px; }
+    .mapa-table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .mapa-table { width: 100%; min-width: 1180px; border-collapse: collapse; background: var(--surface); }
+    .mapa-table th { text-align: center; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-hint); padding: 8px 4px; background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .mapa-table td { padding: 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .mapa-table tr:last-child td { border-bottom: none; }
+    .mapa-table tr.filled { background: var(--blue-bg); }
+    .mapa-n-cell { text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-hint); width: 28px; background: var(--bg) !important; padding: 8px 0 !important; }
+    .mapa-cartao input { font-family: var(--font-mono); letter-spacing: .3px; width: 108px; }
+    .mapa-nome input { min-width: 170px; }
+    .mapa-sexo-toggle { display: flex; width: 62px; }
+    .mapa-sexo-toggle button { flex: 1; padding: 6px 0; font-size: 11px; font-weight: 700; border: none; background: var(--bg); color: var(--text-hint); cursor: pointer; }
+    .mapa-sexo-toggle button.on-m { background: var(--blue); color: #fff; }
+    .mapa-sexo-toggle button.on-f { background: var(--purple); color: #fff; }
+    .mapa-nasc { display: flex; gap: 2px; padding: 4px; width: 96px; }
+    .mapa-nasc input { width: 32px; text-align: center; padding: 5px 2px; font-family: var(--font-mono); font-size: 11px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); color: var(--text); }
+    .mapa-cid input { font-family: var(--font-mono); text-transform: uppercase; width: 76px; }
+    .mapa-conduta-cell { padding: 5px 4px !important; }
+    .mapa-conduta-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; min-width: 190px; }
+    .mapa-chip { font-size: 9.5px; font-weight: 500; padding: 4px 5px; border-radius: 5px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; text-align: center; white-space: nowrap; transition: all .12s; }
+    .mapa-chip:hover { border-color: #c0c8d8; color: var(--text); }
+    .mapa-chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .mapa-proc input { min-width: 140px; }
+    .mapa-qtd input { width: 46px; text-align: center; }
+    .mapa-actions-cell { display: flex; gap: 2px; padding: 6px !important; white-space: nowrap; }
+    .mapa-actions-cell button { border: none; background: none; cursor: pointer; padding: 6px; border-radius: 6px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .mapa-actions-cell button:hover { background: var(--bg); color: var(--red-text); }
 
     /* ── IMPRESSÃO ── */
     .print-area { display: none; }
@@ -280,6 +286,19 @@
       .print-area .print-patient .pp-head { font-size: 14px; font-weight: 700; display: flex; justify-content: space-between; }
       .print-area .print-patient .pp-line { margin-top: 3px; color: #333; }
       .print-area .print-patient .pp-label { font-weight: 600; }
+      @page { size: A4 landscape; margin: 8mm; }
+      .print-area.print-mapa { font-family: 'IBM Plex Sans', sans-serif; color: #111; }
+      .print-mapa .pm-title { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #111; padding-bottom: 6px; margin-bottom: 6px; }
+      .print-mapa .pm-title h2 { font-size: 15px; }
+      .print-mapa .pm-title span { font-size: 11px; color: #333; }
+      .print-mapa .pm-fields { display: grid; grid-template-columns: 2fr 1.6fr 1fr 1fr 1.4fr 1fr; gap: 4px 14px; font-size: 10.5px; margin-bottom: 8px; }
+      .print-mapa .pm-fields div b { display: block; font-size: 8.5px; text-transform: uppercase; color: #666; letter-spacing: .04em; }
+      .print-mapa table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+      .print-mapa th, .print-mapa td { border: 1px solid #999; padding: 3px 4px; text-align: left; }
+      .print-mapa th { background: #eee; text-transform: uppercase; font-size: 8px; text-align: center; }
+      .print-mapa td.pm-n, .print-mapa td.pm-sexo { text-align: center; }
+      .print-mapa .pm-sign { display: flex; justify-content: space-between; margin-top: 26px; }
+      .print-mapa .pm-sign div { width: 45%; text-align: center; font-size: 10px; border-top: 1px solid #111; padding-top: 4px; }
     }
 
     @media (max-width: 400px) {
@@ -312,7 +331,7 @@
 <div class="tabs">
   <button class="tab active" id="tab-new"   onclick="switchTab('new')"><i class="ti ti-plus"></i> Novo</button>
   <button class="tab"        id="tab-list"  onclick="switchTab('list')"><i class="ti ti-layout-list"></i> Enfermaria</button>
-  <button class="tab"        id="tab-porta" onclick="switchTab('porta')"><i class="ti ti-door"></i> Porta <span class="tab-badge" id="porta-badge">0</span></button>
+  <button class="tab"        id="tab-mapa" onclick="switchTab('mapa')"><i class="ti ti-clipboard-text"></i> Mapa Diário <span class="tab-badge" id="mapa-badge">0</span></button>
 </div>
 
 <!-- NOVO -->
@@ -411,21 +430,29 @@
   <div id="edit-content"></div>
 </div>
 
-<!-- PORTA -->
-<div class="main main-wide" id="view-porta" style="display:none">
+<!-- MAPA DIÁRIO -->
+<div class="main main-wide" id="view-mapa" style="display:none">
+  <div class="mapa-header-fields">
+    <div class="field"><div class="field-label">Unidade de Saúde</div><input id="mh-unidade" placeholder="UPA..." onchange="saveMapaHeader()"></div>
+    <div class="field"><div class="field-label">Responsável</div><input id="mh-resp" placeholder="Dr(a)..." onchange="saveMapaHeader()"></div>
+    <div class="field"><div class="field-label">Código</div><input id="mh-codigo" onchange="saveMapaHeader()"></div>
+    <div class="field"><div class="field-label">Matrícula / CRM</div><input id="mh-matricula" placeholder="CRM-GO..." onchange="saveMapaHeader()"></div>
+    <div class="field"><div class="field-label">Especialidade</div><input id="mh-espec" placeholder="Clínica Médica..." onchange="saveMapaHeader()"></div>
+    <div class="field"><div class="field-label">Data</div><input id="mh-data" type="date" onchange="saveMapaHeader()"></div>
+  </div>
   <div class="list-toolbar">
-    <span class="list-info" id="porta-info">Carregando...</span>
+    <span class="list-info" id="mapa-info">Carregando...</span>
     <div style="display:flex;gap:6px">
-      <button class="btn-clear" style="color:var(--blue-text);border-color:#93c5fd" onclick="printPorta()">
+      <button class="btn-clear" style="color:var(--blue-text);border-color:#93c5fd" onclick="printMapa()">
         <i class="ti ti-printer"></i> Imprimir
       </button>
-      <button class="btn-clear" onclick="confirmClearPorta()">
+      <button class="btn-clear" onclick="confirmClearMapa()">
         <i class="ti ti-trash"></i> Limpar
       </button>
     </div>
   </div>
-  <button class="btn-add-row" onclick="addPortaRow()"><i class="ti ti-plus"></i> Adicionar paciente</button>
-  <div id="porta-list"></div>
+  <button class="btn-add-row" onclick="addMapaRow()"><i class="ti ti-plus"></i> Adicionar linha</button>
+  <div id="mapa-list"></div>
 </div>
 
 <div class="sync" id="sync"><i class="ti ti-cloud-upload" style="font-size:13px"></i> Salvando...</div>
@@ -433,7 +460,7 @@
 
 <!-- ÁREA DE IMPRESSÃO -->
 <div class="print-area" id="print-area">
-  <h2 id="print-title">Pendências — Porta (plantão)</h2>
+  <h2 id="print-title"></h2>
   <div class="print-sub" id="print-sub"></div>
   <div id="print-list"></div>
 </div>
@@ -448,7 +475,7 @@ let viewMode = localStorage.getItem('enfermariaView') || 'list';
 let newAtbList = [{ nome:'', dia:'' }];
 let editAtbList = [{ nome:'', dia:'' }];
 
-let portaItems = [];
+let mapaItems = [];
 
 const statusInfo = {
   'concluido':     { label:'Concluído',     color:'green',  icon:'ti-circle-check' },
@@ -467,12 +494,15 @@ const pendInfo = {
   'ecg':    { label:'Aguardando ECG',  icon:'ti-activity-heartbeat' },
   'av-ext': { label:'Av. Externa',     icon:'ti-stethoscope' }
 };
-const portaPendInfo = {
-  'labs':      'Labs',
-  'eas':       'EAS',
-  'ecg':       'ECG',
-  'rx':        'RX',
-  'medicacao': 'Medicação'
+const mapaCondutaInfo = {
+  'ex-prevent': 'Ex.Prevent.',
+  'ex-labor':   'Ex.Labor.',
+  'ex-espec':   'Ex.Espec.',
+  'rx':         'RX',
+  'especial':   'Especial',
+  'hospital':   'Hospital',
+  'alta':       'Alta',
+  'retorno':    'Retorno'
 };
 
 // ── API ──
@@ -505,14 +535,14 @@ function updateBadge() {
 
 // ── TABS ──
 function switchTab(tab) {
-  ['new','list','detail','edit','porta'].forEach(v =>
+  ['new','list','detail','edit','mapa'].forEach(v =>
     document.getElementById('view-'+v).style.display = 'none');
   document.getElementById('view-'+tab).style.display = 'block';
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   const t = document.getElementById('tab-'+tab);
   if (t) t.classList.add('active');
   if (tab === 'list') renderList();
-  if (tab === 'porta') loadPorta();
+  if (tab === 'mapa') loadMapa();
 }
 
 function jump(e, id) {
@@ -1027,75 +1057,105 @@ function toast(msg) {
 }
 
 // ══════════════════════════════════════════
-// ── PORTA (tabela de células editáveis) ──
+// ── MAPA DIÁRIO (tabela de células editáveis) ──
 // ══════════════════════════════════════════
 
-function updatePortaBadge() {
-  document.getElementById('porta-badge').textContent = portaItems.length;
+function updateMapaBadge() {
+  document.getElementById('mapa-badge').textContent = mapaItems.length;
 }
 
-async function loadPorta() {
+// Campos de cabeçalho (unidade, responsável etc.) ficam salvos localmente —
+// não fazem parte de cada paciente, só mudam quando trocam de plantão/unidade.
+function loadMapaHeader() {
+  const h = JSON.parse(localStorage.getItem('mapaHeader') || '{}');
+  document.getElementById('mh-unidade').value   = h.unidade   || '';
+  document.getElementById('mh-resp').value      = h.resp      || '';
+  document.getElementById('mh-codigo').value    = h.codigo    || '';
+  document.getElementById('mh-matricula').value = h.matricula || '';
+  document.getElementById('mh-espec').value     = h.espec     || '';
+  document.getElementById('mh-data').value      = h.data      || new Date().toISOString().slice(0,10);
+}
+function saveMapaHeader() {
+  localStorage.setItem('mapaHeader', JSON.stringify({
+    unidade:   gv('mh-unidade'),
+    resp:      gv('mh-resp'),
+    codigo:    gv('mh-codigo'),
+    matricula: gv('mh-matricula'),
+    espec:     gv('mh-espec'),
+    data:      document.getElementById('mh-data').value
+  }));
+}
+
+async function loadMapa() {
+  loadMapaHeader();
   try {
-    portaItems = await api('GET', '/api/porta');
-    renderPorta();
-    updatePortaBadge();
+    mapaItems = await api('GET', '/api/mapa');
+    renderMapa();
+    updateMapaBadge();
   } catch(e) { toast('Erro ao conectar com o servidor'); }
 }
 
-function renderPorta() {
-  const pendentes = portaItems.filter(p => !p.concluido).length;
-  document.getElementById('porta-info').textContent = `${pendentes} pendente${pendentes!==1?'s':''} · ${portaItems.length} total`;
-  const wrap = document.getElementById('porta-list');
-  if (!portaItems.length) {
-    wrap.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>Nenhum paciente aguardando exame.<br>Clique em "Adicionar paciente" para começar.</p></div>`;
+function renderMapa() {
+  document.getElementById('mapa-info').textContent = `${mapaItems.length} paciente${mapaItems.length!==1?'s':''}`;
+  const wrap = document.getElementById('mapa-list');
+  if (!mapaItems.length) {
+    wrap.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>Nenhum paciente no mapa de hoje.<br>Clique em "Adicionar linha" para começar.</p></div>`;
     return;
   }
   wrap.innerHTML = `
-    <div class="porta-table-wrap">
-      <table class="porta-table">
+    <div class="mapa-table-wrap">
+      <table class="mapa-table">
         <thead>
-          <tr><th>Nome</th><th>Pendências</th><th>Notas</th><th>Hora</th><th></th></tr>
+          <tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Conduta</th><th>Procedimento</th><th>Qtd.</th><th></th></tr>
         </thead>
-        <tbody>${portaItems.map(portaRowHtml).join('')}</tbody>
+        <tbody>${mapaItems.map((p,i) => mapaRowHtml(p,i+1)).join('')}</tbody>
       </table>
     </div>`;
 }
 
-function portaSelected(p) {
-  return (p.exame||'').split(',').map(s=>s.trim()).filter(Boolean);
-}
-
-function portaPendChipsHtml(p) {
-  const sel = portaSelected(p);
-  return `<div class="porta-pend-chips" data-id="${p._id}">
-    ${Object.entries(portaPendInfo).map(([k,label]) =>
-      `<button type="button" class="porta-pend-chip${sel.includes(k)?' active':''}" data-val="${k}" onclick="togglePortaPend('${p._id}','${k}')">${label}</button>`
+function mapaCondutaChipsHtml(p) {
+  const sel = p.conduta || [];
+  return `<div class="mapa-conduta-chips" data-id="${p._id}">
+    ${Object.entries(mapaCondutaInfo).map(([k,label]) =>
+      `<button type="button" class="mapa-chip${sel.includes(k)?' active':''}" data-val="${k}" onclick="toggleMapaConduta('${p._id}','${k}')">${label}</button>`
     ).join('')}
   </div>`;
 }
 
-function portaRowHtml(p) {
-  return `<tr class="${p.concluido?'done':''}" data-id="${p._id}">
-    <td><input class="cell-input" value="${escapeHtml(p.nome)}" placeholder="Nome" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
-    <td class="porta-pend-cell">${portaPendChipsHtml(p)}</td>
-    <td><input class="cell-input" value="${escapeHtml(p.queixa)}" placeholder="Notas" onblur="savePortaRow('${p._id}')" onkeydown="cellEnter(event,'${p._id}')"></td>
-    <td class="porta-col-time">${horaFormat(p.criadoEm)}</td>
-    <td class="porta-actions-cell">
-      <button class="act-check ${p.concluido?'done':''}" onclick="togglePortaConcluido('${p._id}')" title="${p.concluido?'Reabrir':'Concluir'}">
-        <i class="ti ${p.concluido?'ti-rotate-clockwise':'ti-check'}"></i>
-      </button>
-      <button class="act-del" onclick="deletePortaItem('${p._id}')" title="Remover">
-        <i class="ti ti-trash"></i>
-      </button>
+function mapaRowHtml(p, n) {
+  const filled = p.nome ? 'filled' : '';
+  return `<tr class="${filled}" data-id="${p._id}">
+    <td class="mapa-n-cell">${n}</td>
+    <td class="mapa-cartao"><input class="cell-input" value="${escapeHtml(p.cartaoSus)}" placeholder="000000000000000" maxlength="15" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
+    <td class="mapa-nome"><input class="cell-input" value="${escapeHtml(p.nome)}" placeholder="Nome completo" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
+    <td>
+      <div class="mapa-sexo-toggle" data-id="${p._id}">
+        <button type="button" class="${p.sexo==='M'?'on-m':''}" onclick="setMapaSexo('${p._id}','M')">M</button>
+        <button type="button" class="${p.sexo==='F'?'on-f':''}" onclick="setMapaSexo('${p._id}','F')">F</button>
+      </div>
+    </td>
+    <td>
+      <div class="mapa-nasc">
+        <input value="${escapeHtml(p.nascDia)}" placeholder="DD" maxlength="2" onblur="saveMapaRow('${p._id}')">
+        <input value="${escapeHtml(p.nascMes)}" placeholder="MM" maxlength="2" onblur="saveMapaRow('${p._id}')">
+        <input value="${escapeHtml(p.nascAno)}" placeholder="AA" maxlength="2" onblur="saveMapaRow('${p._id}')">
+      </div>
+    </td>
+    <td class="mapa-cid"><input class="cell-input" value="${escapeHtml(p.cid)}" placeholder="CID" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
+    <td class="mapa-conduta-cell">${mapaCondutaChipsHtml(p)}</td>
+    <td class="mapa-proc"><input class="cell-input" value="${escapeHtml(p.procedimento)}" placeholder="Procedimento" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
+    <td class="mapa-qtd"><input value="${escapeHtml(p.quantidade)}" placeholder="0" onblur="saveMapaRow('${p._id}')"></td>
+    <td class="mapa-actions-cell">
+      <button class="act-del" onclick="deleteMapaItem('${p._id}')" title="Remover"><i class="ti ti-trash"></i></button>
     </td>
   </tr>`;
 }
 
-// Enter move para a próxima célula da linha; na última célula, cria nova linha
-function cellEnter(e, id) {
+// Enter avança para a próxima célula de texto da linha; na última, cria nova linha
+function mapaCellEnter(e, id) {
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const row = document.querySelector(`tr[data-id="${id}"]`);
+  const row = document.querySelector(`#mapa-list tr[data-id="${id}"]`);
   if (!row) return;
   const inputs = row.querySelectorAll('input.cell-input');
   const idx = Array.from(inputs).indexOf(e.target);
@@ -1103,108 +1163,147 @@ function cellEnter(e, id) {
     inputs[idx+1].focus();
   } else {
     e.target.blur();
-    addPortaRow();
+    addMapaRow();
   }
 }
 
-// Salva nome + notas (dispara no blur de qualquer célula de texto)
-async function savePortaRow(id) {
-  const row = document.querySelector(`tr[data-id="${id}"]`);
+async function saveMapaRow(id) {
+  const row = document.querySelector(`#mapa-list tr[data-id="${id}"]`);
   if (!row) return;
-  const inputs = row.querySelectorAll('input.cell-input');
-  const nome   = inputs[0].value.trim().toUpperCase();
-  const queixa = inputs[1].value.trim().toUpperCase();
-  const item = portaItems.find(x => x._id === id);
+  const item = mapaItems.find(x => x._id === id);
   if (!item) return;
-  if (item.nome === nome && item.queixa === queixa) return;
-  item.nome = nome; item.queixa = queixa;
+  const nascInputs = row.querySelectorAll('.mapa-nasc input');
+  const payload = {
+    cartaoSus:    row.querySelector('.mapa-cartao input').value.trim(),
+    nome:         row.querySelector('.mapa-nome input').value.trim().toUpperCase(),
+    nascDia:      nascInputs[0].value.trim(),
+    nascMes:      nascInputs[1].value.trim(),
+    nascAno:      nascInputs[2].value.trim(),
+    cid:          row.querySelector('.mapa-cid input').value.trim().toUpperCase(),
+    procedimento: row.querySelector('.mapa-proc input').value.trim(),
+    quantidade:   row.querySelector('.mapa-qtd input').value.trim()
+  };
+  Object.assign(item, payload);
+  row.classList.toggle('filled', !!item.nome);
   try {
-    await api('PUT', `/api/porta/${id}`, { nome, queixa });
+    await api('PUT', `/api/mapa/${id}`, payload);
   } catch(e) { toast('Erro ao salvar'); }
 }
 
-// Toggle de um chip de pendência (Labs / EAS / ECG / RX / Medicação)
-async function togglePortaPend(id, key) {
-  const item = portaItems.find(x => x._id === id);
+async function setMapaSexo(id, val) {
+  const item = mapaItems.find(x => x._id === id);
   if (!item) return;
-  const sel = portaSelected(item);
-  const idx = sel.indexOf(key);
-  if (idx === -1) sel.push(key); else sel.splice(idx,1);
-  item.exame = sel.join(',');
-  const btn = document.querySelector(`.porta-pend-chips[data-id="${id}"] .porta-pend-chip[data-val="${key}"]`);
+  item.sexo = item.sexo === val ? '' : val;
+  const wrap = document.querySelector(`.mapa-sexo-toggle[data-id="${id}"]`);
+  if (wrap) {
+    wrap.querySelectorAll('button').forEach(b => b.classList.remove('on-m','on-f'));
+    if (item.sexo) wrap.querySelector(item.sexo==='M' ? 'button:first-child' : 'button:last-child').classList.add(item.sexo==='M'?'on-m':'on-f');
+  }
+  try {
+    await api('PUT', `/api/mapa/${id}`, { sexo: item.sexo });
+  } catch(e) { toast('Erro ao salvar'); }
+}
+
+async function toggleMapaConduta(id, key) {
+  const item = mapaItems.find(x => x._id === id);
+  if (!item) return;
+  if (!item.conduta) item.conduta = [];
+  const idx = item.conduta.indexOf(key);
+  if (idx === -1) item.conduta.push(key); else item.conduta.splice(idx,1);
+  const btn = document.querySelector(`.mapa-conduta-chips[data-id="${id}"] .mapa-chip[data-val="${key}"]`);
   if (btn) btn.classList.toggle('active');
   try {
-    await api('PUT', `/api/porta/${id}`, { exame: item.exame });
+    await api('PUT', `/api/mapa/${id}`, { conduta: item.conduta });
   } catch(e) { toast('Erro ao salvar'); }
 }
 
-async function addPortaRow() {
+async function addMapaRow() {
   try {
-    const novo = await api('POST', '/api/porta', { nome:'', exame:'', queixa:'', concluido:false });
-    portaItems.unshift(novo);
-    renderPorta();
-    updatePortaBadge();
-    const row = document.querySelector(`tr[data-id="${novo._id}"]`);
+    const novo = await api('POST', '/api/mapa', { cartaoSus:'', nome:'', sexo:'', nascDia:'', nascMes:'', nascAno:'', cid:'', conduta:[], procedimento:'', quantidade:'' });
+    mapaItems.push(novo);
+    renderMapa();
+    updateMapaBadge();
+    const row = document.querySelector(`#mapa-list tr[data-id="${novo._id}"]`);
     row?.querySelector('input.cell-input')?.focus();
   } catch(e) { toast('Erro ao adicionar'); }
 }
 
-async function togglePortaConcluido(id) {
-  const idx = portaItems.findIndex(x => x._id === id);
-  if (idx === -1) return;
-  const novoVal = !portaItems[idx].concluido;
+async function deleteMapaItem(id) {
+  if (!confirm('Remover esta linha?')) return;
   try {
-    const updated = await api('PUT', `/api/porta/${id}`, { concluido: novoVal });
-    const item = { ...portaItems[idx], ...updated };
-    portaItems.splice(idx, 1);
-    if (novoVal) portaItems.push(item); else portaItems.unshift(item);
-    renderPorta();
-    toast(novoVal ? 'Concluído ✓' : 'Reaberto');
-  } catch(e) { toast('Erro ao atualizar'); }
-}
-
-async function deletePortaItem(id) {
-  if (!confirm('Remover este item?')) return;
-  try {
-    await api('DELETE', `/api/porta/${id}`);
-    portaItems = portaItems.filter(x => x._id !== id);
-    renderPorta();
-    updatePortaBadge();
+    await api('DELETE', `/api/mapa/${id}`);
+    mapaItems = mapaItems.filter(x => x._id !== id);
+    renderMapa();
+    updateMapaBadge();
     toast('Removido');
   } catch(e) { toast('Erro ao remover'); }
 }
 
-async function confirmClearPorta() {
-  if (!portaItems.length) { toast('Nada para limpar'); return; }
-  if (!confirm(`Limpar todos os ${portaItems.length} itens da Porta?`)) return;
+async function confirmClearMapa() {
+  if (!mapaItems.length) { toast('Nada para limpar'); return; }
+  if (!confirm(`Limpar todas as ${mapaItems.length} linhas do Mapa Diário?`)) return;
   try {
-    await api('DELETE', '/api/porta');
-    portaItems = [];
-    renderPorta();
-    updatePortaBadge();
-    toast('Lista limpa!');
+    await api('DELETE', '/api/mapa');
+    mapaItems = [];
+    renderMapa();
+    updateMapaBadge();
+    toast('Mapa limpo!');
   } catch(e) { toast('Erro ao limpar'); }
 }
 
-function portaPendLabel(exameStr) {
-  const sel = (exameStr||'').split(',').map(s=>s.trim()).filter(Boolean);
-  return sel.map(k => portaPendInfo[k] || k).join(', ');
-}
+function printMapa() {
+  const preenchidos = mapaItems.filter(p => p.nome);
+  if (!preenchidos.length) { toast('Nenhum paciente preenchido para imprimir'); return; }
+  saveMapaHeader();
+  const h = JSON.parse(localStorage.getItem('mapaHeader') || '{}');
+  const dataFmt = h.data ? new Date(h.data + 'T00:00:00').toLocaleDateString('pt-BR') : '';
 
-function printPorta() {
-  const pendentes = portaItems.filter(p => !p.concluido);
-  if (!pendentes.length) { toast('Nenhuma pendência para imprimir'); return; }
-  document.getElementById('print-title').textContent = 'Pendências — Porta (plantão)';
-  document.getElementById('print-sub').textContent =
-    new Date().toLocaleString('pt-BR') + ' · ' + pendentes.length + ' pendente' + (pendentes.length!==1?'s':'');
-  document.getElementById('print-list').innerHTML = pendentes.map(p => `
-    <div class="print-row">
-      <b>${escapeHtml(p.nome)}</b>${p.exame?' — '+escapeHtml(portaPendLabel(p.exame)):''}${p.queixa?' — '+escapeHtml(p.queixa):''}
-      <span class="print-time">${horaFormat(p.criadoEm)}</span>
-    </div>`).join('');
+  const rowsHtml = preenchidos.map((p,i) => `
+    <tr>
+      <td class="pm-n">${i+1}</td>
+      <td>${escapeHtml(p.cartaoSus)}</td>
+      <td>${escapeHtml(p.nome)}</td>
+      <td class="pm-sexo">${escapeHtml(p.sexo)}</td>
+      <td>${[p.nascDia,p.nascMes,p.nascAno].filter(Boolean).join('/')}</td>
+      <td>${escapeHtml(p.cid)}</td>
+      <td>${(p.conduta||[]).map(k => mapaCondutaInfo[k] || k).join(', ')}</td>
+      <td>${escapeHtml(p.procedimento)}</td>
+      <td class="pm-n">${escapeHtml(p.quantidade)}</td>
+    </tr>`).join('');
+
+  document.getElementById('print-area').className = 'print-area print-mapa';
+  document.getElementById('print-area').innerHTML = `
+    <div class="pm-title">
+      <h2>Mapa Diário de Atendimento</h2>
+      <span>SUS · ${dataFmt}</span>
+    </div>
+    <div class="pm-fields">
+      <div><b>Unidade de Saúde</b>${escapeHtml(h.unidade)}</div>
+      <div><b>Responsável</b>${escapeHtml(h.resp)}</div>
+      <div><b>Código</b>${escapeHtml(h.codigo)}</div>
+      <div><b>Matrícula</b>${escapeHtml(h.matricula)}</div>
+      <div><b>Especialidade</b>${escapeHtml(h.espec)}</div>
+      <div><b>Data</b>${dataFmt}</div>
+    </div>
+    <table>
+      <thead><tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Conduta</th><th>Procedimento SIA-SUS</th><th>Qtd.</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+    <div class="pm-sign">
+      <div>Assinatura e carimbo</div>
+      <div>Assinatura e carimbo do chefe</div>
+    </div>`;
+
   document.body.classList.add('printing');
   window.print();
-  setTimeout(() => document.body.classList.remove('printing'), 500);
+  setTimeout(() => {
+    document.body.classList.remove('printing');
+    document.getElementById('print-area').className = 'print-area';
+    document.getElementById('print-area').innerHTML = `
+      <h2 id="print-title"></h2>
+      <div class="print-sub" id="print-sub"></div>
+      <div id="print-list"></div>`;
+  }, 500);
 }
 window.addEventListener('afterprint', () => document.body.classList.remove('printing'));
 
@@ -1228,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('vt-grid')?.classList.toggle('active', viewMode === 'grid');
   renderAtbRows('new');
   loadPatients().then(() => {});
-  api('GET', '/api/porta').then(items => { portaItems = items; updatePortaBadge(); }).catch(() => {});
+  api('GET', '/api/mapa').then(items => { mapaItems = items; updateMapaBadge(); }).catch(() => {});
 });
 </script>
 </body>
