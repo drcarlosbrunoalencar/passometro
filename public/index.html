@@ -241,6 +241,30 @@
     .btn-add-atb:hover { opacity: 0.85; }
 
     /* ── MAPA DIÁRIO ── */
+    .mapa-brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 12px; }
+    .mapa-brand-side { display: flex; align-items: center; gap: 10px; }
+    .mapa-seal { width: 46px; height: 46px; flex-shrink: 0; object-fit: contain; }
+    .mapa-brand-text { font-size: 9.5px; line-height: 1.35; color: var(--text-muted); font-weight: 600; }
+    .mapa-brand-text b { display: block; font-size: 10.5px; color: var(--text); }
+    .mapa-brand-title { text-align: center; }
+    .mapa-brand-title h2 { font-family: var(--font-display); font-size: 19px; letter-spacing: .01em; }
+    .mapa-brand-title span { font-size: 10.5px; color: var(--text-hint); text-transform: uppercase; letter-spacing: .07em; }
+
+    .mapa-risk-summary { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .mapa-risk-count { flex: 1; min-width: 110px; display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); }
+    .mapa-risk-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    .mapa-risk-count .n { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1; }
+    .mapa-risk-count .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+    .risk-azul     { background: #2f6fed; }
+    .risk-verde    { background: #3c8a5b; }
+    .risk-amarela  { background: #d3a017; }
+    .risk-vermelha { background: #d6362c; }
+
+    .mapa-risk-cell { padding: 6px 4px !important; }
+    .mapa-risk-boxes { display: flex; gap: 3px; }
+    .mapa-risk-box { width: 22px; height: 22px; border-radius: 5px; border: 2px solid transparent; cursor: pointer; opacity: .35; transition: all .12s; }
+    .mapa-risk-box:hover { opacity: .7; }
+    .mapa-risk-box.on { opacity: 1; border-color: var(--text); transform: scale(1.08); }
     .mapa-header-fields { display: grid; grid-template-columns: 2fr 1.6fr 1fr 1fr 1.4fr 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }
     .mapa-header-fields .field { margin-bottom: 0; }
     .mapa-header-fields .field-label { font-size: 10px; }
@@ -288,15 +312,24 @@
       .print-area .print-patient .pp-label { font-weight: 600; }
       @page { size: A4 landscape; margin: 8mm; }
       .print-area.print-mapa { font-family: 'IBM Plex Sans', sans-serif; color: #111; }
-      .print-mapa .pm-title { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #111; padding-bottom: 6px; margin-bottom: 6px; }
-      .print-mapa .pm-title h2 { font-size: 15px; }
+      .print-mapa .pm-brand { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 8px; margin-bottom: 8px; }
+      .print-mapa .pm-brand-side { display: flex; align-items: center; gap: 8px; width: 30%; }
+      .print-mapa .pm-brand-side.right { justify-content: flex-end; text-align: right; }
+      .print-mapa .pm-seal { width: 38px; height: 38px; flex-shrink: 0; object-fit: contain; }
+      .print-mapa .pm-brand-text { font-size: 8px; line-height: 1.3; }
+      .print-mapa .pm-brand-text b { display: block; font-size: 9px; }
+      .print-mapa .pm-brand-center { width: 40%; text-align: center; }
+      .print-mapa .pm-brand-center h2 { font-size: 15px; }
+      .print-mapa .pm-brand-center span { font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #444; }
+      .print-mapa .pm-title { display: flex; justify-content: flex-end; margin-bottom: 6px; }
       .print-mapa .pm-title span { font-size: 11px; color: #333; }
       .print-mapa .pm-fields { display: grid; grid-template-columns: 2fr 1.6fr 1fr 1fr 1.4fr 1fr; gap: 4px 14px; font-size: 10.5px; margin-bottom: 8px; }
       .print-mapa .pm-fields div b { display: block; font-size: 8.5px; text-transform: uppercase; color: #666; letter-spacing: .04em; }
       .print-mapa table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
       .print-mapa th, .print-mapa td { border: 1px solid #999; padding: 3px 4px; text-align: left; }
       .print-mapa th { background: #eee; text-transform: uppercase; font-size: 8px; text-align: center; }
-      .print-mapa td.pm-n, .print-mapa td.pm-sexo { text-align: center; }
+      .print-mapa td.pm-n, .print-mapa td.pm-sexo, .print-mapa td.pm-risco { text-align: center; }
+      .print-mapa .pm-risk-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
       .print-mapa .pm-sign { display: flex; justify-content: space-between; margin-top: 26px; }
       .print-mapa .pm-sign div { width: 45%; text-align: center; font-size: 10px; border-top: 1px solid #111; padding-top: 4px; }
     }
@@ -432,6 +465,21 @@
 
 <!-- MAPA DIÁRIO -->
 <div class="main main-wide" id="view-mapa" style="display:none">
+  <div class="mapa-brand-bar">
+    <div class="mapa-brand-side">
+      <img class="mapa-seal" src="/img/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
+      <div class="mapa-brand-text"><b>SUS</b>Sistema Único<br>de Saúde</div>
+    </div>
+    <div class="mapa-brand-title">
+      <h2>Mapa Diário de Atendimento</h2>
+      <span>Ministério da Saúde · Prefeitura Municipal de Aparecida de Goiânia</span>
+    </div>
+    <div class="mapa-brand-side" style="justify-content:flex-end;text-align:right">
+      <div class="mapa-brand-text"><b>Prefeitura Municipal</b>Aparecida de Goiânia<br>Secretaria Municipal de Saúde</div>
+      <img class="mapa-seal" src="/img/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
+    </div>
+  </div>
+  <div class="mapa-risk-summary" id="mapa-risk-summary"></div>
   <div class="mapa-header-fields">
     <div class="field"><div class="field-label">Unidade de Saúde</div><input id="mh-unidade" placeholder="UPA..." onchange="saveMapaHeader()"></div>
     <div class="field"><div class="field-label">Responsável</div><input id="mh-resp" placeholder="Dr(a)..." onchange="saveMapaHeader()"></div>
@@ -503,6 +551,12 @@ const mapaCondutaInfo = {
   'hospital':   'Hospital',
   'alta':       'Alta',
   'retorno':    'Retorno'
+};
+const mapaRiscoInfo = {
+  'azul':     { label: 'Azul',     hex: '#2f6fed' },
+  'verde':    { label: 'Verde',    hex: '#3c8a5b' },
+  'amarela':  { label: 'Amarela',  hex: '#d3a017' },
+  'vermelha': { label: 'Vermelha', hex: '#d6362c' }
 };
 
 // ── API ──
@@ -1097,6 +1151,7 @@ async function loadMapa() {
 
 function renderMapa() {
   document.getElementById('mapa-info').textContent = `${mapaItems.length} paciente${mapaItems.length!==1?'s':''}`;
+  renderMapaRiskSummary();
   const wrap = document.getElementById('mapa-list');
   if (!mapaItems.length) {
     wrap.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>Nenhum paciente no mapa de hoje.<br>Clique em "Adicionar linha" para começar.</p></div>`;
@@ -1106,11 +1161,23 @@ function renderMapa() {
     <div class="mapa-table-wrap">
       <table class="mapa-table">
         <thead>
-          <tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Conduta</th><th>Procedimento</th><th>Qtd.</th><th></th></tr>
+          <tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Classificação</th><th>Conduta</th><th>Procedimento</th><th>Qtd.</th><th></th></tr>
         </thead>
         <tbody>${mapaItems.map((p,i) => mapaRowHtml(p,i+1)).join('')}</tbody>
       </table>
     </div>`;
+}
+
+function renderMapaRiskSummary() {
+  const el = document.getElementById('mapa-risk-summary');
+  if (!el) return;
+  el.innerHTML = Object.entries(mapaRiscoInfo).map(([k,info]) => {
+    const n = mapaItems.filter(p => p.classificacao === k).length;
+    return `<div class="mapa-risk-count">
+      <div class="mapa-risk-dot risk-${k}"></div>
+      <div><div class="n">${n}</div><div class="lbl">${info.label}</div></div>
+    </div>`;
+  }).join('');
 }
 
 function mapaCondutaChipsHtml(p) {
@@ -1118,6 +1185,14 @@ function mapaCondutaChipsHtml(p) {
   return `<div class="mapa-conduta-chips" data-id="${p._id}">
     ${Object.entries(mapaCondutaInfo).map(([k,label]) =>
       `<button type="button" class="mapa-chip${sel.includes(k)?' active':''}" data-val="${k}" onclick="toggleMapaConduta('${p._id}','${k}')">${label}</button>`
+    ).join('')}
+  </div>`;
+}
+
+function mapaRiscoBoxesHtml(p) {
+  return `<div class="mapa-risk-boxes" data-id="${p._id}">
+    ${Object.entries(mapaRiscoInfo).map(([k,info]) =>
+      `<button type="button" class="mapa-risk-box risk-${k}${p.classificacao===k?' on':''}" data-val="${k}" title="${info.label}" onclick="setMapaRisco('${p._id}','${k}')"></button>`
     ).join('')}
   </div>`;
 }
@@ -1142,6 +1217,7 @@ function mapaRowHtml(p, n) {
       </div>
     </td>
     <td class="mapa-cid"><input class="cell-input" value="${escapeHtml(p.cid)}" placeholder="CID" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
+    <td class="mapa-risk-cell">${mapaRiscoBoxesHtml(p)}</td>
     <td class="mapa-conduta-cell">${mapaCondutaChipsHtml(p)}</td>
     <td class="mapa-proc"><input class="cell-input" value="${escapeHtml(p.procedimento)}" placeholder="Procedimento" onblur="saveMapaRow('${p._id}')" onkeydown="mapaCellEnter(event,'${p._id}')"></td>
     <td class="mapa-qtd"><input value="${escapeHtml(p.quantidade)}" placeholder="0" onblur="saveMapaRow('${p._id}')"></td>
@@ -1217,9 +1293,24 @@ async function toggleMapaConduta(id, key) {
   } catch(e) { toast('Erro ao salvar'); }
 }
 
+async function setMapaRisco(id, val) {
+  const item = mapaItems.find(x => x._id === id);
+  if (!item) return;
+  item.classificacao = item.classificacao === val ? '' : val;
+  const wrap = document.querySelector(`.mapa-risk-boxes[data-id="${id}"]`);
+  if (wrap) {
+    wrap.querySelectorAll('.mapa-risk-box').forEach(b => b.classList.remove('on'));
+    if (item.classificacao) wrap.querySelector(`.mapa-risk-box[data-val="${item.classificacao}"]`)?.classList.add('on');
+  }
+  renderMapaRiskSummary();
+  try {
+    await api('PUT', `/api/mapa/${id}`, { classificacao: item.classificacao });
+  } catch(e) { toast('Erro ao salvar'); }
+}
+
 async function addMapaRow() {
   try {
-    const novo = await api('POST', '/api/mapa', { cartaoSus:'', nome:'', sexo:'', nascDia:'', nascMes:'', nascAno:'', cid:'', conduta:[], procedimento:'', quantidade:'' });
+    const novo = await api('POST', '/api/mapa', { cartaoSus:'', nome:'', sexo:'', nascDia:'', nascMes:'', nascAno:'', cid:'', conduta:[], classificacao:'', procedimento:'', quantidade:'' });
     mapaItems.push(novo);
     renderMapa();
     updateMapaBadge();
@@ -1266,6 +1357,7 @@ function printMapa() {
       <td class="pm-sexo">${escapeHtml(p.sexo)}</td>
       <td>${[p.nascDia,p.nascMes,p.nascAno].filter(Boolean).join('/')}</td>
       <td>${escapeHtml(p.cid)}</td>
+      <td class="pm-risco">${p.classificacao ? `<span class="pm-risk-dot" style="background:${mapaRiscoInfo[p.classificacao].hex}"></span> ${mapaRiscoInfo[p.classificacao].label}` : ''}</td>
       <td>${(p.conduta||[]).map(k => mapaCondutaInfo[k] || k).join(', ')}</td>
       <td>${escapeHtml(p.procedimento)}</td>
       <td class="pm-n">${escapeHtml(p.quantidade)}</td>
@@ -1273,9 +1365,19 @@ function printMapa() {
 
   document.getElementById('print-area').className = 'print-area print-mapa';
   document.getElementById('print-area').innerHTML = `
-    <div class="pm-title">
-      <h2>Mapa Diário de Atendimento</h2>
-      <span>SUS · ${dataFmt}</span>
+    <div class="pm-brand">
+      <div class="pm-brand-side">
+        <img class="pm-seal" src="/img/logo-sus.png" alt="SUS" onerror="this.style.display='none'">
+        <div class="pm-brand-text"><b>SUS</b>Sistema Único de Saúde</div>
+      </div>
+      <div class="pm-brand-center">
+        <h2>Mapa Diário de Atendimento</h2>
+        <span>Ministério da Saúde · ${dataFmt}</span>
+      </div>
+      <div class="pm-brand-side right">
+        <div class="pm-brand-text"><b>Prefeitura Municipal</b>Aparecida de Goiânia · Sec. Municipal de Saúde</div>
+        <img class="pm-seal" src="/img/logo-prefeitura.png" alt="Prefeitura de Aparecida de Goiânia" onerror="this.style.display='none'">
+      </div>
     </div>
     <div class="pm-fields">
       <div><b>Unidade de Saúde</b>${escapeHtml(h.unidade)}</div>
@@ -1286,7 +1388,7 @@ function printMapa() {
       <div><b>Data</b>${dataFmt}</div>
     </div>
     <table>
-      <thead><tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Conduta</th><th>Procedimento SIA-SUS</th><th>Qtd.</th></tr></thead>
+      <thead><tr><th>Nº</th><th>Cartão SUS</th><th>Nome completo</th><th>Sexo</th><th>Nascimento</th><th>CID</th><th>Classificação</th><th>Conduta</th><th>Procedimento SIA-SUS</th><th>Qtd.</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
     </table>
     <div class="pm-sign">
