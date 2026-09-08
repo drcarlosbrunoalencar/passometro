@@ -26,14 +26,20 @@ const PacienteSchema = new mongoose.Schema({
 });
 const Paciente = mongoose.model('Paciente', PacienteSchema);
 
-const PortaSchema = new mongoose.Schema({
-  nome:      { type: String, default: '' },
-  exame:     { type: String, default: '' },
-  queixa:    { type: String, default: '' },
-  concluido: { type: Boolean, default: false },
-  criadoEm:  { type: Date, default: Date.now }
+const MapaSchema = new mongoose.Schema({
+  cartaoSus:   { type: String, default: '' },
+  nome:        { type: String, default: '' },
+  sexo:        { type: String, default: '' },   // 'M' | 'F' | ''
+  nascDia:     { type: String, default: '' },
+  nascMes:     { type: String, default: '' },
+  nascAno:     { type: String, default: '' },
+  cid:         { type: String, default: '' },
+  conduta:     { type: [String], default: [] }, // ex: ['rx','alta']
+  procedimento:{ type: String, default: '' },
+  quantidade:  { type: String, default: '' },
+  criadoEm:    { type: Date, default: Date.now }
 });
-const PortaItem = mongoose.model('PortaItem', PortaSchema);
+const MapaItem = mongoose.model('MapaItem', MapaSchema);
 
 app.get('/api/pacientes', async (req, res) => {
   try {
@@ -67,34 +73,34 @@ app.delete('/api/pacientes', async (req, res) => {
   } catch (e) { res.status(400).json({ erro: e.message }); }
 });
 
-app.get('/api/porta', async (req, res) => {
+app.get('/api/mapa', async (req, res) => {
   try {
-    const itens = await PortaItem.find().sort({ criadoEm: 1 });
+    const itens = await MapaItem.find().sort({ criadoEm: 1 });
     res.json(itens);
   } catch (e) { res.status(500).json({ erro: e.message }); }
 });
-app.post('/api/porta', async (req, res) => {
+app.post('/api/mapa', async (req, res) => {
   try {
-    const item = new PortaItem(req.body);
+    const item = new MapaItem(req.body);
     await item.save();
     res.status(201).json(item);
   } catch (e) { res.status(400).json({ erro: e.message }); }
 });
-app.put('/api/porta/:id', async (req, res) => {
+app.put('/api/mapa/:id', async (req, res) => {
   try {
-    const item = await PortaItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const item = await MapaItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(item);
   } catch (e) { res.status(400).json({ erro: e.message }); }
 });
-app.delete('/api/porta/:id', async (req, res) => {
+app.delete('/api/mapa/:id', async (req, res) => {
   try {
-    await PortaItem.findByIdAndDelete(req.params.id);
+    await MapaItem.findByIdAndDelete(req.params.id);
     res.json({ ok: true });
   } catch (e) { res.status(400).json({ erro: e.message }); }
 });
-app.delete('/api/porta', async (req, res) => {
+app.delete('/api/mapa', async (req, res) => {
   try {
-    await PortaItem.deleteMany({});
+    await MapaItem.deleteMany({});
     res.json({ ok: true });
   } catch (e) { res.status(400).json({ erro: e.message }); }
 });
